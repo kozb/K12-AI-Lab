@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>K12 AI Lab — Okullar için Yapay Zekâ ve Veri Eğitimi</title>
+  <meta name="description" content="K12 okullarında proje temelli Yapay Zekâ ve Veri eğitimi altyapısı kuran akademik danışmanlık şirketi." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --ink:       #0A1628;
+      --ink2:      #111E30;
+      --ink3:      #1C2E45;
+      --gold:      #B8922A;
+      --gold2:     #D4AC50;
+      --gold3:     #EDD07C;
+      --parchment: #F7F3EC;
+      --parchment2:#EEE8DC;
+      --parchment3:#E5DDD0;
+      --warm:      #F0EAE0;
+      --muted:     #6B7A8D;
+      --muted2:    #9AAAB8;
+      --white:     #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--parchment);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--ink); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+    ::selection { background: var(--gold2); color: var(--ink); }
+
+    /* ─── NAV ─────────────────────────────────────────────────── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 64px;
+      transition: background 0.5s, box-shadow 0.5s;
+    }
+    #nav.solid {
+      background: rgba(10,22,40,0.97);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 rgba(184,146,42,0.2);
+    }
+    .nav-brand { text-decoration: none; display: flex; flex-direction: column; gap: 2px; }
+    .nav-brand-main {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 700;
+      color: var(--white); letter-spacing: 0.2px; line-height: 1;
+    }
+    .nav-brand-main span { color: var(--gold2); }
+    .nav-brand-sub { display: none; }
+    .nav-center { display: flex; gap: 40px; }
+    .nav-link {
+      font-size: 14px; font-weight: 400;
+      color: rgba(255,255,255,0.55); text-decoration: none;
+      position: relative; transition: color 0.2s;
+    }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -3px; left: 0;
+      width: 0; height: 1px; background: var(--gold2);
+      transition: width 0.3s;
+    }
+    .nav-link:hover { color: var(--white); }
+    .nav-link:hover::after { width: 100%; }
+    .btn-nav {
+      font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--ink);
+      background: var(--gold2); padding: 11px 26px;
+      border: none; border-radius: 1px; cursor: pointer;
+      text-decoration: none; transition: background 0.2s, transform 0.15s;
+    }
+    .btn-nav:hover { background: var(--gold3); transform: translateY(-1px); }
+
+    /* Mobile nav toggle */
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--white); border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .mobile-menu {
+      display: none; position: fixed; top: 72px; left: 0; right: 0;
+      background: rgba(10,22,40,0.98); backdrop-filter: blur(20px);
+      padding: 24px 32px 32px; z-index: 199;
+      flex-direction: column; gap: 0;
+      border-top: 1px solid rgba(184,146,42,0.2);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu .nav-link {
+      font-size: 17px; padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.7);
+    }
+    .mobile-menu .btn-nav { margin-top: 20px; text-align: center; width: 100%; display: block; padding: 16px; }
+
+    /* ─── HERO ─────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      background: var(--ink);
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+    }
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(184,146,42,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(184,146,42,0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+    .hero-band {
+      position: absolute; top: -10%; right: -5%;
+      width: 55%; height: 120%;
+      background: linear-gradient(165deg, rgba(28,46,69,0.85) 0%, rgba(10,22,40,0.1) 100%);
+      transform: skewX(-8deg); z-index: 0;
+    }
+    .hero-orb {
+      position: absolute; z-index: 0; border-radius: 50%;
+    }
+    .hero-orb-1 {
+      width: 700px; height: 700px; top: -120px; right: -120px;
+      background: radial-gradient(circle, rgba(184,146,42,0.09) 0%, transparent 65%);
+    }
+    .hero-orb-2 {
+      width: 320px; height: 320px; bottom: 120px; left: 8%;
+      background: radial-gradient(circle, rgba(28,46,69,0.7) 0%, transparent 70%);
+    }
+    .hero-rule {
+      position: absolute; left: 64px; top: 0; bottom: 0; width: 1px;
+      background: linear-gradient(to bottom, transparent 8%, rgba(184,146,42,0.2) 35%, rgba(184,146,42,0.2) 70%, transparent);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 88px 100px;
+      max-width: 960px;
+      padding-top: 200px;
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 40px;
+    }
+    .hero-eyebrow-line { width: 48px; height: 1px; background: var(--gold2); }
+    .hero-eyebrow-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      color: var(--gold2); letter-spacing: 3px; text-transform: uppercase;
+    }
+    .hero-h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(52px, 7vw, 100px);
+      font-weight: 400; line-height: 1.0; color: var(--white);
+    }
+    .hero-h1 em { font-style: italic; color: var(--gold2); }
+    .hero-h1-b {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(52px, 7vw, 100px);
+      font-weight: 900; line-height: 1.0; color: var(--white);
+      margin-bottom: 44px;
+    }
+    .hero-lead {
+      font-size: clamp(16px, 1.8vw, 20px);
+      font-weight: 300; line-height: 1.85;
+      color: rgba(255,255,255,0.55);
+      max-width: 580px; margin-bottom: 52px;
+    }
+    .hero-actions { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+    .btn-primary {
+      font-size: 13px; font-weight: 600; letter-spacing: 1.8px;
+      text-transform: uppercase; color: var(--ink);
+      background: var(--gold2); padding: 18px 44px;
+      border: none; border-radius: 1px; cursor: pointer;
+      text-decoration: none; display: inline-block;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold3); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,146,42,0.25); }
+    .btn-ghost {
+      font-size: 13px; font-weight: 400;
+      color: rgba(255,255,255,0.5); background: none; border: none;
+      cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px;
+      transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--gold2); }
+    .btn-ghost svg { transition: transform 0.2s; }
+    .btn-ghost:hover svg { transform: translateX(4px); }
+
+    /* Stats bar */
+    .hero-stats {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+      border-top: 1px solid rgba(184,146,42,0.15);
+      display: grid; grid-template-columns: repeat(4, 1fr);
+    }
+    .hero-stat {
+      padding: 28px 40px;
+      border-right: 1px solid rgba(184,146,42,0.1);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px; font-weight: 400; color: var(--white); line-height: 1;
+    }
+    .hero-stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--gold2);
+      letter-spacing: 2px; text-transform: uppercase; margin-top: 4px;
+    }
+
+    /* ─── MARQUEE ─────────────────────────────────────────────── */
+    #marquee {
+      background: var(--gold2); padding: 22px 0; overflow: hidden;
+    }
+    .marquee-track {
+      display: flex; gap: 56px;
+      animation: marquee 32s linear infinite;
+      white-space: nowrap; width: max-content;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .marquee-item {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px; font-style: italic;
+      color: var(--ink); display: flex; align-items: center; gap: 56px;
+    }
+    .marquee-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(10,22,40,0.25); flex-shrink: 0; }
+
+    /* ─── SECTIONS COMMON ─────────────────────────────────────── */
+    section { scroll-margin-top: 72px; }
+
+    .section-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; font-weight: 500;
+      color: var(--gold); letter-spacing: 3px; text-transform: uppercase;
+      margin-bottom: 24px; display: flex; align-items: center; gap: 14px;
+    }
+    .section-tag::before { content: ''; width: 36px; height: 1px; background: var(--gold); }
+    .section-tag.light { color: var(--gold2); }
+    .section-tag.light::before { background: var(--gold2); }
+
+    .section-h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 4vw, 58px);
+      font-weight: 400; line-height: 1.1; margin-bottom: 24px;
+    }
+    .section-h2 strong { font-weight: 900; }
+
+    .section-lead {
+      font-size: clamp(16px, 1.5vw, 19px);
+      font-weight: 300; line-height: 1.85; color: var(--muted);
+      max-width: 600px;
+    }
+
+    /* ─── ABOUT ───────────────────────────────────────────────── */
+    #about {
+      padding: 120px 64px;
+      background: var(--parchment);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 100px; align-items: start;
+    }
+    .about-left { position: sticky; top: 110px; }
+    .about-body {
+      font-size: clamp(15px, 1.3vw, 17px);
+      line-height: 1.9; color: var(--muted);
+      font-weight: 300; margin-bottom: 20px;
+    }
+    .quote-pull {
+      margin-top: 40px; padding: 28px 28px 28px 34px;
+      background: var(--ink); position: relative;
+    }
+    .quote-pull::before {
+      content: ''; position: absolute;
+      left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold2);
+    }
+    .quote-pull p {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(17px, 1.5vw, 20px); font-style: italic;
+      color: var(--white); line-height: 1.65;
+    }
+    .about-right { padding-top: 16px; }
+    .about-pillars { display: flex; flex-direction: column; gap: 0; }
+    .pillar {
+      padding: 28px 0; border-bottom: 1px solid var(--parchment3);
+      display: grid; grid-template-columns: 48px 1fr; gap: 16px;
+      transition: padding-left 0.3s;
+    }
+    .pillar:first-child { border-top: 1px solid var(--parchment3); }
+    .pillar:hover { padding-left: 8px; }
+    .pillar-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; color: var(--gold); padding-top: 3px;
+    }
+    .pillar-title {
+      font-size: 17px; font-weight: 600; color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .pillar-body {
+      font-size: 15px; line-height: 1.8; color: var(--muted); font-weight: 300;
+    }
+
+    /* ─── SERVICES ─────────────────────────────────────────────── */
+    #services {
+      background: var(--ink);
+      padding: 120px 64px;
+    }
+    .services-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; margin-bottom: 72px; gap: 40px;
+    }
+    .services-desc {
+      font-size: clamp(14px, 1.2vw, 16px); line-height: 1.85;
+      color: rgba(255,255,255,0.35); max-width: 340px;
+      text-align: right; font-weight: 300;
+    }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; background: rgba(255,255,255,0.04);
+    }
+    .svc-card {
+      background: var(--ink2); padding: 48px 38px;
+      position: relative; overflow: hidden;
+      transition: background 0.3s, transform 0.3s; cursor: default;
+    }
+    .svc-card::after {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .svc-icon { font-size: 30px; margin-bottom: 20px; display: block; }
+    .svc-card:hover::after { transform: scaleX(1); }
+    .svc-num { display: none; }
+    .svc-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 600; color: var(--white);
+      margin-bottom: 14px; line-height: 1.25;
+    }
+    .svc-body {
+      font-size: 15px; line-height: 1.85;
+      color: rgba(255,255,255,0.4); font-weight: 300; margin-bottom: 24px;
+    }
+    .svc-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+    .svc-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--gold2); border: 1px solid rgba(212,172,80,0.25);
+      padding: 5px 11px; border-radius: 1px;
+    }
+
+    /* ─── HACKATHON ─────────────────────────────────────────────── */
+    #hackathon {
+      background: var(--gold2);
+      padding: 100px 64px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .hackathon-left {}
+    .hackathon-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      color: var(--ink); letter-spacing: 3px; text-transform: uppercase;
+      margin-bottom: 20px; display: flex; align-items: center; gap: 14px;
+      opacity: 0.6;
+    }
+    .hackathon-tag::before { content: ''; width: 36px; height: 1px; background: var(--ink); }
+    .hackathon-h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(34px, 3.5vw, 52px);
+      font-weight: 900; line-height: 1.05; color: var(--ink);
+      margin-bottom: 24px;
+    }
+    .hackathon-body {
+      font-size: clamp(15px, 1.3vw, 17px);
+      line-height: 1.9; color: rgba(10,22,40,0.7); font-weight: 300;
+    }
+    .hackathon-right {}
+    .hackathon-cards { display: flex; flex-direction: column; gap: 12px; }
+    .hackathon-card {
+      background: rgba(10,22,40,0.08);
+      padding: 24px 28px; border-radius: 2px;
+      display: grid; grid-template-columns: 48px 1fr;
+      gap: 16px; align-items: start;
+      transition: background 0.2s;
+    }
+    .hackathon-card:hover { background: rgba(10,22,40,0.14); }
+    .hackathon-card-icon {
+      font-size: 22px; display: flex;
+      align-items: center; justify-content: center;
+      width: 44px; height: 44px;
+      background: rgba(10,22,40,0.1); border-radius: 50%;
+    }
+    .hackathon-card-title {
+      font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 4px;
+    }
+    .hackathon-card-body {
+      font-size: 14px; line-height: 1.75; color: rgba(10,22,40,0.6); font-weight: 300;
+    }
+
+    /* ─── GROWTH ────────────────────────────────────────────────── */
+    #growth {
+      background: var(--parchment2); padding: 120px 64px;
+    }
+    .growth-inner {
+      display: grid; grid-template-columns: 380px 1fr;
+      gap: 88px; align-items: start;
+    }
+    .growth-left { position: sticky; top: 110px; }
+    .north-star {
+      margin-top: 40px; background: var(--ink);
+      padding: 28px 32px; position: relative; overflow: hidden;
+    }
+    .north-star::before {
+      content: '★'; position: absolute;
+      right: 20px; top: 50%; transform: translateY(-50%);
+      font-size: 72px; color: rgba(184,146,42,0.07); line-height: 1;
+    }
+    .north-star-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--gold2);
+      letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 10px;
+    }
+    .north-star-text {
+      font-size: 15px; line-height: 1.8;
+      color: rgba(255,255,255,0.5); font-weight: 300;
+    }
+    .north-star-text strong { color: var(--white); font-weight: 500; }
+
+    .phases { display: flex; flex-direction: column; }
+    .phase {
+      display: grid; grid-template-columns: 88px 1fr;
+      position: relative;
+    }
+    .phase-spine {
+      display: flex; flex-direction: column;
+      align-items: center; padding-top: 4px; position: relative;
+    }
+    .phase-spine::after {
+      content: ''; position: absolute;
+      top: 20px; bottom: -20px; left: 50%;
+      width: 1px; transform: translateX(-50%);
+      background: linear-gradient(to bottom, rgba(184,146,42,0.35), rgba(184,146,42,0.05));
+    }
+    .phase:last-child .phase-spine::after { display: none; }
+    .phase-dot {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--parchment2); border: 2px solid var(--gold);
+      z-index: 1; flex-shrink: 0; transition: background 0.3s;
+    }
+    .phase:hover .phase-dot { background: var(--gold); }
+    .phase-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px; color: var(--gold);
+      letter-spacing: 1.5px; margin-top: 10px;
+      writing-mode: vertical-rl;
+    }
+    .phase-body { padding: 0 0 56px 32px; }
+    .phase-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 12px; font-style: italic; color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .phase-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px; font-weight: 700; color: var(--ink);
+      margin-bottom: 12px; line-height: 1.15;
+    }
+    .phase-desc {
+      font-size: clamp(14px, 1.2vw, 16px);
+      line-height: 1.85; color: var(--muted);
+      font-weight: 300; margin-bottom: 18px;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      font-size: 13px; font-weight: 500; color: var(--ink2);
+      background: var(--parchment3); padding: 6px 16px; border-radius: 20px;
+      transition: background 0.2s;
+    }
+    .phase:hover .chip { background: rgba(184,146,42,0.15); }
+
+    /* ─── AUDIENCE ──────────────────────────────────────────────── */
+    #audience { background: var(--ink3); padding: 120px 64px; }
+    .audience-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; margin-top: 64px;
+    }
+    .target-card {
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 40px; transition: border-color 0.3s, background 0.3s;
+    }
+    .target-card:hover { border-color: rgba(212,172,80,0.4); background: rgba(255,255,255,0.03); }
+    .target-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold2); margin-bottom: 14px;
+    }
+    .target-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px; font-weight: 700; color: var(--white);
+      margin-bottom: 14px; line-height: 1.2;
+    }
+    .target-body { font-size: 15px; color: rgba(255,255,255,0.4); line-height: 1.8; font-weight: 300; }
+    .target-list { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+    .target-list-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 15px; color: rgba(255,255,255,0.5); font-weight: 300; line-height: 1.6;
+    }
+    .target-list-item::before {
+      content: '—'; color: var(--gold2); flex-shrink: 0; margin-top: 1px;
+    }
+
+    .why-list { display: flex; flex-direction: column; }
+    .why-item {
+      padding: 26px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: grid; grid-template-columns: 52px 1fr; gap: 16px;
+      transition: padding-left 0.3s;
+    }
+    .why-item:last-child { border-bottom: none; }
+    .why-item:hover { padding-left: 8px; }
+    .why-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold2); padding-top: 3px; }
+    .why-title { font-size: 16px; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+    .why-body { font-size: 14px; color: rgba(255,255,255,0.38); line-height: 1.8; font-weight: 300; }
+
+    /* ─── CURRICULUM ────────────────────────────────────────────── */
+    #curriculum { background: var(--parchment); padding: 120px 64px; }
+    .curr-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--parchment3);
+      border: 1px solid var(--parchment3); margin-top: 64px;
+    }
+    .curr-card {
+      background: var(--parchment); padding: 44px 32px;
+      transition: background 0.3s;
+    }
+    .curr-card:hover { background: var(--warm); }
+    .curr-card.future { opacity: 0.5; }
+    .curr-status {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .curr-dot { width: 7px; height: 7px; border-radius: 50%; }
+    .status-active .curr-dot { background: #3A9A3A; }
+    .status-active .curr-status-text { color: #3A7A3A; }
+    .status-future .curr-dot { background: var(--muted); }
+    .status-future .curr-status-text { color: var(--muted); }
+    .curr-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 700; color: var(--ink);
+      margin-bottom: 8px; line-height: 1.2;
+    }
+    .curr-level { font-size: 15px; color: var(--muted); margin-bottom: 16px; }
+    .curr-year { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold); letter-spacing: 1px; }
+
+    /* ─── CONTACT ───────────────────────────────────────────────── */
+    #contact {
+      background: var(--ink); padding: 120px 64px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 88px; align-items: start;
+    }
+    .contact-info { margin-top: 48px; display: flex; flex-direction: column; gap: 28px; }
+    .contact-info-item { display: flex; gap: 18px; align-items: flex-start; }
+    .contact-info-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: rgba(212,172,80,0.1); border: 1px solid rgba(212,172,80,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; border-radius: 1px;
+    }
+    .contact-info-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--gold2); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
+    .contact-info-value { font-size: 15px; color: rgba(255,255,255,0.55); font-weight: 300; }
+    .contact-form-wrap {}
+    .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted2); }
+    .form-input, .form-select, .form-textarea {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white); font-family: 'Outfit', sans-serif;
+      font-size: 15px; font-weight: 300;
+      padding: 14px 18px; border-radius: 1px; outline: none; width: 100%;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--gold2); background: rgba(255,255,255,0.07); }
+    .form-select option { background: var(--ink2); }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-submit {
+      font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+      background: var(--gold2); color: var(--ink);
+      padding: 18px 36px; border: none; border-radius: 1px;
+      cursor: pointer; width: 100%; margin-top: 8px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .form-submit:hover { background: var(--gold3); transform: translateY(-1px); }
+    .form-success { display: none; text-align: center; padding: 56px 24px; }
+    .form-success.show { display: block; }
+    .form-success-icon { font-size: 48px; margin-bottom: 16px; }
+    .form-success-title { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--white); margin-bottom: 12px; }
+    .form-success-body { font-size: 15px; color: rgba(255,255,255,0.4); }
+
+    /* ─── FOOTER ────────────────────────────────────────────────── */
+    footer {
+      background: #060E1A; padding: 48px 64px;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 24px;
+      border-top: 1px solid rgba(184,146,42,0.15);
+    }
+    .footer-brand { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--white); }
+    .footer-brand span { display: block; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--gold2); letter-spacing: 2px; margin-top: 4px; font-weight: 400; }
+    .footer-links { display: flex; gap: 32px; flex-wrap: wrap; }
+    .footer-link { font-size: 13px; color: rgba(255,255,255,0.3); text-decoration: none; cursor: pointer; transition: color 0.2s; }
+    .footer-link:hover { color: var(--gold2); }
+    .footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.2); }
+
+    /* ─── ANIMATIONS ────────────────────────────────────────────── */
+    .fade-up { opacity: 1; transform: none; }
+    .fade-up.visible { opacity: 1; transform: none; }
+     
+     
+     
+
+    /* ─── RESPONSIVE ────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      #nav { padding: 0 28px; }
+      .nav-center, .nav-right > a:not(.btn-nav) { display: none; }
+      .nav-hamburger { display: flex; }
+
+      #hero { padding-bottom: 220px; }
+      .hero-content { padding: 0 28px 80px; }
+      .hero-rule { left: 28px; }
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+      .hero-stat { padding: 20px 24px; }
+      .hero-stat-num { font-size: 30px; }
+
+      #about { grid-template-columns: 1fr; padding: 80px 28px; gap: 56px; }
+      .about-left { position: static; }
+
+      #services { padding: 80px 28px; }
+      .services-header { flex-direction: column; align-items: flex-start; }
+      .services-desc { text-align: left; max-width: none; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+
+      #hackathon { grid-template-columns: 1fr; padding: 80px 28px; gap: 48px; }
+
+      #growth { padding: 80px 28px; }
+      .growth-inner { grid-template-columns: 1fr; }
+      .growth-left { position: static; }
+
+      #audience { padding: 80px 28px; }
+      .audience-inner { grid-template-columns: 1fr; }
+
+      #curriculum { padding: 80px 28px; }
+      .curr-grid { grid-template-columns: 1fr 1fr; }
+
+      #contact { grid-template-columns: 1fr; padding: 80px 28px; gap: 56px; }
+
+      footer { padding: 40px 28px; flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; }
+    }
+
+    @media (max-width: 640px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .curr-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-h1, .hero-h1-b { font-size: 44px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-brand" href="#">
+    <span class="nav-brand-main">K12 <span>AI Lab</span></span>
+    <span class="nav-brand-sub">Akademik Danışmanlık</span>
+  </a>
+  <div class="nav-center">
+    <a class="nav-link" href="#about">Yaklaşımımız</a>
+    <a class="nav-link" href="#services">Hizmetler</a>
+    <a class="nav-link" href="#hackathon">Hackathon</a>
+    <a class="nav-link" href="#growth">Süreç</a>
+    <a class="nav-link" href="#curriculum">Müfredat</a>
+    <a class="nav-link" href="#contact">İletişim</a>
+  </div>
+  <div class="nav-right">
+    <a class="btn-nav" href="#contact">Görüşme Talep Et</a>
+    <div class="nav-hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a class="nav-link" href="#about" onclick="closeMenu()">Yaklaşımımız</a>
+  <a class="nav-link" href="#services" onclick="closeMenu()">Hizmetler</a>
+  <a class="nav-link" href="#hackathon" onclick="closeMenu()">Hackathon</a>
+  <a class="nav-link" href="#growth" onclick="closeMenu()">Süreç</a>
+  <a class="nav-link" href="#curriculum" onclick="closeMenu()">Müfredat</a>
+  <a class="nav-link" href="#contact" onclick="closeMenu()">İletişim</a>
+  <a class="btn-nav" href="#contact" onclick="closeMenu()">Görüşme Talep Et</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-band"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-rule"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow fade-up">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">Proje Temelli · Hackathon Destekli · K12</span>
+    </div>
+    <div class="hero-h1 fade-up d1">Okulunuzu <em>yapay zekâ</em></div>
+    <div class="hero-h1-b fade-up d2">çağına taşıyoruz.</div>
+    <p class="hero-lead fade-up d3">
+      Üst segment okullarda AI ve veri eğitimi altyapısı kuran, müfredat tasarlayan ve kurumsal dönüşümü yöneten akademik danışmanlık şirketiyiz. Öğrenciler gerçek projeler üretir, dönemlik hackathonlarla yetkinliklerini kanıtlar.
+    </p>
+    <div class="hero-actions fade-up d4">
+      <a class="btn-primary" href="#contact">Görüşme Talep Et</a>
+      <a class="btn-ghost" href="#about">
+        Daha Fazla Bilgi
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-stats fade-up d5">
+    <div class="hero-stat">
+      <div class="hero-stat-num">6</div>
+      <div class="hero-stat-label">Hizmet Bileşeni</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">2×</div>
+      <div class="hero-stat-label">Yıllık Hackathon</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">IB/AP</div>
+      <div class="hero-stat-label">Program Uyumu</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">3</div>
+      <div class="hero-stat-label">Yıllık Yol Haritası</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div id="marquee">
+  <div class="marquee-track">
+    <div class="marquee-item">Proje Temelli Öğrenme <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Dönemlik Hackathon <div class="marquee-dot"></div></div>
+    <div class="marquee-item">AI + Veri Müfredatı <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Öğretmen Akademisi <div class="marquee-dot"></div></div>
+    <div class="marquee-item">IB/AP Uyumlu Program <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Kurumsal Dönüşüm <div class="marquee-dot"></div></div>
+    <div class="marquee-item">K12 Eğitim Dönüşümü <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Etki Ölçümü <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Proje Temelli Öğrenme <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Dönemlik Hackathon <div class="marquee-dot"></div></div>
+    <div class="marquee-item">AI + Veri Müfredatı <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Öğretmen Akademisi <div class="marquee-dot"></div></div>
+    <div class="marquee-item">IB/AP Uyumlu Program <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Kurumsal Dönüşüm <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Akademik Danışmanlık <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Etki Ölçümü <div class="marquee-dot"></div></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left">
+    <div class="section-tag fade-up">Yaklaşımımız</div>
+    <h2 class="section-h2 fade-up d1">
+      Öğrenciler <em>proje üretir,</em><br><strong>yetkinliklerini kanıtlar.</strong>
+    </h2>
+    <p class="about-body fade-up d2">
+      K12 AI Lab, üst segment okullarda yapay zekâ ve veri eğitimi altyapısını baştan tasarlayan akademik danışmanlık şirketidir. Bütünü görürüz: müfredat, öğretmen, ölçüm — hepsi birlikte kurgulanır.
+    </p>
+    <p class="about-body fade-up d3">
+      Programın merkezinde <strong>proje temelli öğrenme</strong> yer alır. Öğrenciler gerçek veri problemleri üzerinde çalışır, dönem sonunda ürünlerini sunar. Her dönem sonu yapılan <strong>hackathonlar</strong>, bu öğrenmeyi rekabetçi ve ölçülebilir hale getirir.
+    </p>
+    <div class="quote-pull fade-up d4">
+      <p>"Okullarda Yapay Zekâ ve Veri eğitimi altyapısını kuran ve kurumsal dönüşümü yöneten akademik danışmanlık şirketi."</p>
+    </div>
+  </div>
+
+  <div class="about-right fade-up d2">
+    <div class="section-tag">Temel İlkelerimiz</div>
+    <div class="about-pillars">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <div>
+          <div class="pillar-title">Sistematik Dönüşüm</div>
+          <p class="pillar-body">Tek seferlik eğitim değil; analiz, tasarım, uygulama ve ölçüm döngüsünden oluşan bütüncül bir kurumsal dönüşüm sistemi. Her okul için özel yol haritası.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <div>
+          <div class="pillar-title">Proje ve Uygulama Odaklı</div>
+          <p class="pillar-body">Müfredatın her birimi somut bir proje çıktısına bağlıdır. Öğrenciler teorik bilgiyi gerçek dünya problemlerine uygular ve portföy oluşturur.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <div>
+          <div class="pillar-title">Öğretmen Merkezli Kapasite</div>
+          <p class="pillar-body">Programı taşıyan öğretmendir. Sertifikasyon, mentorluk ve sürekli gelişim ile öğretmen dönüşümün asıl öznesi haline gelir.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">04</div>
+        <div>
+          <div class="pillar-title">Akademik Güvenilirlik</div>
+          <p class="pillar-body">IB/AP uyumlu müfredat çerçevesi, akademik danışma kurulu desteği ve yıllık etki raporuyla programın değeri somut verilerle kanıtlanır.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header">
+    <div>
+      <div class="section-tag light fade-up">Hizmet Paketi</div>
+      <h2 class="section-h2 fade-up d1" style="color:var(--white)">
+        Altı bileşen,<br><strong>bir dönüşüm sistemi.</strong>
+      </h2>
+    </div>
+    <p class="services-desc fade-up d2">
+      Her bileşen birbirini tamamlar. Müfredat olmadan öğretmen eğitimi, ölçüm olmadan atölye anlamsızdır. Bütünü birlikte tasarlarız.
+    </p>
+  </div>
+
+  <div class="services-grid">
+    <div class="svc-card fade-up">
+      <div class="svc-num">01</div>
+      <span class="svc-icon">🔬</span>
+      <div class="svc-title">Kurumsal Analiz</div>
+      <p class="svc-body">Okulun mevcut altyapısını, öğretmen yetkinliklerini ve teknolojik hazırlık düzeyini değerlendiriyor; kuruma özgü dönüşüm yol haritasını birlikte inşa ediyoruz.</p>
+      <div class="svc-tags"><span class="svc-tag">Altyapı</span><span class="svc-tag">Yetkinlik</span><span class="svc-tag">Yol Haritası</span></div>
+    </div>
+    <div class="svc-card fade-up d1">
+      <div class="svc-num">02</div>
+      <span class="svc-icon">📐</span>
+      <div class="svc-title">Müfredat Tasarımı</div>
+      <p class="svc-body">Ortaokul ve lise için proje temelli AI + Veri programları, ders planları, proje çerçeveleri ve IB/AP uyumlu değerlendirme rubriklerini tasarlıyoruz.</p>
+      <div class="svc-tags"><span class="svc-tag">IB/AP Uyumlu</span><span class="svc-tag">Proje Temelli</span><span class="svc-tag">Araştırma</span></div>
+    </div>
+    <div class="svc-card fade-up d2">
+      <div class="svc-num">03</div>
+      <span class="svc-icon">🎓</span>
+      <div class="svc-title">Öğretmen Akademisi</div>
+      <p class="svc-body">Yoğun başlangıç eğitimi, sertifikasyon ve aylık mentorluk ile öğretmeni programın gerçek sahibi yapan kapsamlı bir kapasite geliştirme süreci.</p>
+      <div class="svc-tags"><span class="svc-tag">Sertifikasyon</span><span class="svc-tag">Mentorluk</span><span class="svc-tag">Sürekli Gelişim</span></div>
+    </div>
+    <div class="svc-card fade-up d1">
+      <div class="svc-num">04</div>
+      <span class="svc-icon">⚡</span>
+      <div class="svc-title">Öğrenci Proje Atölyeleri</div>
+      <p class="svc-body">Veri analizi, modelleme ve proje geliştirmeden sunum hazırlığına uzanan uygulamalı atölyeler. Her ders birimi somut bir proje çıktısına bağlıdır.</p>
+      <div class="svc-tags"><span class="svc-tag">Hands-on</span><span class="svc-tag">Veri Analizi</span><span class="svc-tag">Modelleme</span></div>
+    </div>
+    <div class="svc-card fade-up d2">
+      <div class="svc-num">05</div>
+      <span class="svc-icon">🏛️</span>
+      <div class="svc-title">Dönemlik Hackathon</div>
+      <p class="svc-body">Her dönem sonunda yapılan hackathon ile öğrenciler yetkinliklerini rekabetçi ortamda kanıtlar. Akademisyen jürisi değerlendirir, en iyi projeler ödüllendirilir.</p>
+      <div class="svc-tags"><span class="svc-tag">Rekabetçi</span><span class="svc-tag">Jürili</span><span class="svc-tag">Ödüllü</span></div>
+    </div>
+    <div class="svc-card fade-up d3">
+      <div class="svc-num">06</div>
+      <span class="svc-icon">📊</span>
+      <div class="svc-title">Etki Ölçümü</div>
+      <p class="svc-body">Öğrenci çıktıları, öğretmen gelişimi ve kurumsal ilerleme göstergelerini kapsayan yıllık etki raporu ile programın değeri somut veriyle kanıtlanır.</p>
+      <div class="svc-tags"><span class="svc-tag">Veri Odaklı</span><span class="svc-tag">Şeffaflık</span><span class="svc-tag">ROI</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- HACKATHON -->
+<section id="hackathon">
+  <div class="hackathon-left">
+    <div class="hackathon-tag">Dönemlik Hackathon</div>
+    <h2 class="hackathon-h2">Öğrenmek yetmez.<br>Kanıtlamak gerekir.</h2>
+    <p class="hackathon-body">
+      Her dönem sonunda tüm öğrenciler 24–48 saatlik hackathon formatında gerçek bir problemi çözer. Bu sadece bir sınav değil; öğrencinin düşünme biçimini, takım çalışmasını ve teknik yetkinliğini aynı anda gösteren bir platform.
+    </p>
+    <p class="hackathon-body" style="margin-top:16px">
+      Hackathon sonuçları yıllık etki raporuna girer, öğrenci portföyüne eklenir ve kurumun akademik prestijini güçlendiren somut bir çıktıya dönüşür.
+    </p>
+  </div>
+  <div class="hackathon-right">
+    <div class="hackathon-cards">
+      <div class="hackathon-card">
+        <div class="hackathon-card-icon">🎯</div>
+        <div>
+          <div class="hackathon-card-title">Gerçek Problem, Gerçek Çözüm</div>
+          <p class="hackathon-card-body">Öğrenciler simüle edilmiş değil, gerçek veri setleri ve gerçek dünya problemleriyle çalışır. Sonuç uygulanabilir bir ürün veya analizdir.</p>
+        </div>
+      </div>
+      <div class="hackathon-card">
+        <div class="hackathon-card-icon">👥</div>
+        <div>
+          <div class="hackathon-card-title">Takım Dinamiği ve Liderlik</div>
+          <p class="hackathon-card-body">Disiplinlerarası takımlar kurulur. Teknik yetkinlik kadar iletişim, planlama ve liderlik becerileri de değerlendirilir.</p>
+        </div>
+      </div>
+      <div class="hackathon-card">
+        <div class="hackathon-card-icon">🏅</div>
+        <div>
+          <div class="hackathon-card-title">Akademik Jüri ve Ödüller</div>
+          <p class="hackathon-card-body">Akademisyenler ve sektör profesyonellerinden oluşan jüri değerlendirir. En iyi projeler ödüllendirilir ve ulusal zirvede sergilenir.</p>
+        </div>
+      </div>
+      <div class="hackathon-card">
+        <div class="hackathon-card-icon">📁</div>
+        <div>
+          <div class="hackathon-card-title">Portföy ve Akademik Belge</div>
+          <p class="hackathon-card-body">Her öğrencinin hackathon çıktısı belgelenerek kişisel portföyüne eklenir. Üniversite başvurularında güçlü bir akademik kanıt niteliği taşır.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GROWTH -->
+<section id="growth">
+  <div class="growth-inner">
+    <div class="growth-left">
+      <div class="section-tag fade-up">Büyüme Stratejisi</div>
+      <h2 class="section-h2 fade-up d1">
+        Kanıtla,<br>sonra<br><strong>ölçeklen.</strong>
+      </h2>
+      <p class="section-lead fade-up d2">
+        Her aşama bir sonrakinin önkoşulunu oluşturur. Kanıtlanmamış modeli ölçeklendirmeyiz.
+      </p>
+      <div class="north-star fade-up d3">
+        <div class="north-star-label">★ Kuzey Yıldızı</div>
+        <p class="north-star-text">Yıl 1 sonunda <strong>2 pilot okulda tamamlanmış program</strong>, ölçülebilir bir <strong>etki raporu</strong> ve en az <strong>2 güçlü referans</strong>. Bunlar olmadan Yıl 2 yoktur.</p>
+      </div>
+    </div>
+
+    <div class="phases">
+      <div class="phase fade-up">
+        <div class="phase-spine">
+          <div class="phase-dot"></div>
+          <div class="phase-tag">2026</div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-label">Yıl 1</div>
+          <div class="phase-title">Model Doğrulama</div>
+          <p class="phase-desc">2–3 pilot okulda derin uygulama. Müfredat olgunlaştırma, hackathon formatını test etme ve referans üretimi. Büyüme değil, iz bırakma yılı.</p>
+          <div class="chips">
+            <span class="chip">2–3 Pilot Okul</span>
+            <span class="chip">İlk Hackathon</span>
+            <span class="chip">Müfredat Olgunlaştırma</span>
+            <span class="chip">Referans Üretimi</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase fade-up d1">
+        <div class="phase-spine">
+          <div class="phase-dot"></div>
+          <div class="phase-tag">2027</div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-label">Yıl 2</div>
+          <div class="phase-title">Ölçeklenme</div>
+          <p class="phase-desc">10+ okula genişleme, dijital platform kurulumu ve Doğa Bilimleri entegrasyonu. Hackathonlar okullar arası rekabetçi formata taşınır.</p>
+          <div class="chips">
+            <span class="chip">10+ Okul</span>
+            <span class="chip">Dijital Platform</span>
+            <span class="chip">Okullar Arası Hackathon</span>
+            <span class="chip">Doğa Bilimleri</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase fade-up d2">
+        <div class="phase-spine">
+          <div class="phase-dot"></div>
+          <div class="phase-tag">2028</div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-label">Yıl 3</div>
+          <div class="phase-title">Ulusal Liderlik</div>
+          <p class="phase-desc">Araştırma laboratuvarları, Ulusal Öğrenci Zirvesi ve hackathon'un ulusal platforma taşınması. Türkiye'de AI eğitiminde referans kurum.</p>
+          <div class="chips">
+            <span class="chip">Araştırma Lab</span>
+            <span class="chip">Ulusal Zirve</span>
+            <span class="chip">Ulusal Hackathon</span>
+            <span class="chip">Uluslararası Açılım</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section id="audience">
+  <div class="section-tag light fade-up">Hedef Kitle ve Neden Biz</div>
+  <h2 class="section-h2 fade-up d1" style="color:var(--white)">
+    Uluslararası hedefleri olan<br><strong>üst segment okullar.</strong>
+  </h2>
+
+  <div class="audience-inner">
+    <div class="target-card fade-up">
+      <div class="target-badge">Hedef Kurum Profili</div>
+      <div class="target-title">Modern, Uluslararası Vizyonlu Okullar</div>
+      <p class="target-body">Öğrencilerini küresel rekabete hazırlamayı hedefleyen, akademik yeniliğe açık ve kaliteli eğitime yatırım yapan üst segment kurumlar.</p>
+      <div class="target-list">
+        <div class="target-list-item">IB, AP veya uluslararası müfredat uygulayan okullar</div>
+        <div class="target-list-item">Araştırma ve proje kültürünü benimseyen kurumlar</div>
+        <div class="target-list-item">Öğrencilerini uluslararası üniversitelere hazırlayan programlar</div>
+        <div class="target-list-item">STEM ve teknoloji alanında öncü olmak isteyen okullar</div>
+        <div class="target-list-item">Kurumsal dönüşüme stratejik yatırım yapan yönetimler</div>
+      </div>
+    </div>
+
+    <div class="why-list fade-up d1">
+      <div style="margin-bottom:32px">
+        <div class="section-tag light" style="margin-bottom:16px">Rekabet Avantajımız</div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">01</div>
+        <div>
+          <div class="why-title">Proje Temelli Sistem</div>
+          <p class="why-body">Piyasadaki alternatiflerin büyük çoğunluğu içerik aktarımına odaklanır. Biz her ders birimini somut bir proje çıktısına bağlayan sistematik bir model kuruyoruz.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">02</div>
+        <div>
+          <div class="why-title">Dönemlik Hackathon Formatı</div>
+          <p class="why-body">Hackathon, öğrenmeyi ölçülebilir ve rekabetçi hale getirir. Öğrenci portföyüne ve kurumun akademik prestijine doğrudan katkı sağlar.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">03</div>
+        <div>
+          <div class="why-title">Akademik Danışma Kurulu</div>
+          <p class="why-body">Bağımsız akademisyenlerden oluşan kurulun sağladığı içerik güvencesi, IB/AP standartlarına uyum ve uluslararası akademik çıpa.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">04</div>
+        <div>
+          <div class="why-title">Öğretmen Merkezli Kalıcılık</div>
+          <p class="why-body">Program bitmez; öğretmen sahiplenir. Sertifikalı, mentorlu öğretmen ağı kurumsal dönüşümün uzun vadeli güvencesidir.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section id="curriculum">
+  <div class="section-tag fade-up">Müfredat Mimarisi</div>
+  <h2 class="section-h2 fade-up d1">
+    Dört modül,<br><strong>iki aşama.</strong>
+  </h2>
+  <p class="section-lead fade-up d2">
+    Yıl 1'de AI + Veri müfredatları hayata geçirilir. Her modül proje temelli ve hackathon desteklidir. Doğa Bilimleri entegrasyonu Yıl 2'den itibaren eklenir.
+  </p>
+
+  <div class="curr-grid">
+    <div class="curr-card fade-up">
+      <div class="curr-status status-active">
+        <div class="curr-dot"></div>
+        <span class="curr-status-text">Aktif — Yıl 1</span>
+      </div>
+      <div class="curr-title">AI + Veri</div>
+      <div class="curr-level">Ortaokul Programı</div>
+      <div class="curr-year">2026 →</div>
+    </div>
+    <div class="curr-card fade-up d1">
+      <div class="curr-status status-active">
+        <div class="curr-dot"></div>
+        <span class="curr-status-text">Aktif — Yıl 1</span>
+      </div>
+      <div class="curr-title">AI + Veri</div>
+      <div class="curr-level">Lise Programı</div>
+      <div class="curr-year">2026 →</div>
+    </div>
+    <div class="curr-card future fade-up d2">
+      <div class="curr-status status-future">
+        <div class="curr-dot"></div>
+        <span class="curr-status-text">Yakında — Yıl 2+</span>
+      </div>
+      <div class="curr-title">Doğa Bilimleri</div>
+      <div class="curr-level">Ortaokul Programı</div>
+      <div class="curr-year">2027 →</div>
+    </div>
+    <div class="curr-card future fade-up d3">
+      <div class="curr-status status-future">
+        <div class="curr-dot"></div>
+        <span class="curr-status-text">Yakında — Yıl 2+</span>
+      </div>
+      <div class="curr-title">Doğa Bilimleri</div>
+      <div class="curr-level">Lise Programı</div>
+      <div class="curr-year">2027 →</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-left">
+    <div class="section-tag light fade-up">İletişim</div>
+    <h2 class="section-h2 fade-up d1" style="color:var(--white)">
+      Dönüşüm bir<br><strong>görüşmeyle başlar.</strong>
+    </h2>
+    <p class="section-lead fade-up d2" style="color:rgba(255,255,255,0.4)">
+      Pilot okul başvurularını değerlendiriyoruz. Kurumunuza özel ön analiz görüşmesi için bilgilerinizi bırakın.
+    </p>
+    <div class="contact-info fade-up d3">
+      <div class="contact-info-item">
+        <div class="contact-info-icon">✉</div>
+        <div>
+          <div class="contact-info-label">E-Posta</div>
+          <div class="contact-info-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="89e0e7efe6c9e2b8bbe8e0e5e8eba7eae6e4">[email&#160;protected]</a></div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-info-icon">📍</div>
+        <div>
+          <div class="contact-info-label">Konum</div>
+          <div class="contact-info-value">İstanbul, Türkiye</div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-info-icon">🕐</div>
+        <div>
+          <div class="contact-info-label">Yanıt Süresi</div>
+          <div class="contact-info-value">48 saat içinde dönüş yapılır</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-form-wrap fade-up d2">
+    <div id="contactForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Ad Soyad</label>
+          <input type="text" class="form-input" placeholder="Dr. Ayşe Kaya" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Unvan</label>
+          <input type="text" class="form-input" placeholder="Genel Müdür" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Okul / Kurum Adı</label>
+        <input type="text" class="form-input" placeholder="Kurum adını yazın" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">E-Posta</label>
+        <input type="email" class="form-input" placeholder="ad@kurum.edu.tr" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">İlgilendiğiniz Program</label>
+        <select class="form-select">
+          <option value="">Seçin</option>
+          <option>AI + Veri — Ortaokul</option>
+          <option>AI + Veri — Lise</option>
+          <option>Her İkisi</option>
+          <option>Genel Bilgi Almak İstiyorum</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Mesajınız (İsteğe Bağlı)</label>
+        <textarea class="form-textarea" placeholder="Kurumunuz hakkında kısaca bilgi verebilirsiniz…"></textarea>
+      </div>
+      <button class="form-submit" onclick="submitForm()">Görüşme Talep Et</button>
+    </div>
+    <div class="form-success" id="formSuccess">
+      <div class="form-success-icon">✓</div>
+      <div class="form-success-title">Talebiniz Alındı</div>
+      <p class="form-success-body">48 saat içinde kurumsal e-posta adresinize dönüş yapılacaktır.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    K12 AI Lab
+    <span>İstanbul, Türkiye</span>
+  </div>
+  <div class="footer-links">
+    <a class="footer-link" href="#about">Yaklaşımımız</a>
+    <a class="footer-link" href="#services">Hizmetler</a>
+    <a class="footer-link" href="#hackathon">Hackathon</a>
+    <a class="footer-link" href="#growth">Süreç</a>
+    <a class="footer-link" href="#curriculum">Müfredat</a>
+    <a class="footer-link" href="#contact">İletişim</a>
+  </div>
+  <div class="footer-copy">© 2026 K12 AI Lab</div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('solid', window.scrollY > 40));
+
+  // Fade-up observer
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  // Hero immediate
+  setTimeout(() => document.querySelectorAll('#hero .fade-up').forEach(el => el.classList.add('visible')), 80);
+
+  // Mobile menu
+  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+  function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+  // Form
+  function submitForm() {
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('formSuccess').classList.add('show');
+  }
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+  

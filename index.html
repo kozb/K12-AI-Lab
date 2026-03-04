@@ -27,7 +27,7 @@
       --white:     #FFFFFF;
     }
 
-    html { scroll-behavior: smooth; font-size: 16px; }
+    html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
 
     body {
       font-family: 'Outfit', sans-serif;
@@ -86,6 +86,9 @@
     .btn-nav:hover { background: var(--gold3); transform: translateY(-1px); }
 
     /* Mobile nav toggle */
+    .nav-right {
+      display: flex; align-items: center; gap: 16px;
+    }
     .nav-hamburger {
       display: none; flex-direction: column; gap: 5px;
       cursor: pointer; padding: 4px;
@@ -283,6 +286,15 @@
     }
     .pillar-body {
       font-size: 15px; line-height: 1.8; color: var(--muted); font-weight: 300;
+    }
+
+    /* ─── WHY DYNAMIC ──────────────────────────────────────────── */
+    #why-dynamic {
+      background: var(--ink3); padding: 120px 64px;
+    }
+    .why-dynamic-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 88px; align-items: start;
     }
 
     /* ─── SERVICES ─────────────────────────────────────────────── */
@@ -611,6 +623,10 @@
       #nav { padding: 0 24px; }
       .nav-center { display: none; }
       .nav-hamburger { display: flex; }
+      nav .btn-nav { display: none; }
+
+      #why-dynamic { padding: 72px 32px; }
+      .why-dynamic-grid { grid-template-columns: 1fr; gap: 48px; }
 
       .hero-content { padding: 48px 32px 48px; }
       .hero-h1, .hero-h1b { font-size: clamp(40px, 7vw, 72px); }
@@ -652,6 +668,16 @@
       .mobile-menu { top: 60px; }
       .nav-brand { font-size: 17px; }
       section { scroll-margin-top: 60px; }
+
+      #why-dynamic { padding: 52px 20px; }
+      .why-dynamic-grid { grid-template-columns: 1fr; gap: 36px; }
+      #why-dynamic .section-h2 { font-size: 28px; }
+      #why-dynamic .about-body { font-size: 15px; }
+      #why-dynamic .pillar { grid-template-columns: 36px 1fr; padding: 22px 0; }
+      #why-dynamic .pillar-title { font-size: 15px; }
+      #why-dynamic .pillar-body { font-size: 14px; }
+      #why-dynamic .quote-pull { padding: 20px 20px 20px 26px; }
+      #why-dynamic .quote-pull p { font-size: 15px; }
 
       .hero-content { padding: 40px 20px 36px; }
       .hero-h1, .hero-h1b { font-size: 36px; line-height: 1.08; }
@@ -885,8 +911,8 @@
 </section>
 
 <!-- WHY DYNAMIC -->
-<section id="why-dynamic" style="background: var(--ink3); padding: 120px 64px;">
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 88px; align-items: start;">
+<section id="why-dynamic">
+  <div class="why-dynamic-grid">
     <div>
       <div class="section-tag light fade-up">Neden Farklıyız</div>
       <h2 class="section-h2 fade-up d1" style="color:var(--white)">

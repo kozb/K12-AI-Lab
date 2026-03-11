@@ -553,6 +553,70 @@
     .curr-level { font-size: 15px; color: var(--muted); margin-bottom: 16px; }
     .curr-year { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold); letter-spacing: 1px; }
 
+    /* ─── CURRICULUM CONTENT ───────────────────────────────────── */
+    .curr-content { margin-top: 80px; }
+    .curr-content-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px; font-weight: 700; color: var(--ink);
+      margin-bottom: 12px; line-height: 1.2;
+    }
+    .curr-content-lead {
+      font-size: 16px; color: var(--muted); line-height: 1.7;
+      max-width: 640px; margin-bottom: 48px;
+    }
+    .curr-topics {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 1px; background: var(--parchment3);
+      border: 1px solid var(--parchment3);
+      margin-bottom: 64px;
+    }
+    .curr-topic {
+      background: var(--parchment); padding: 28px 24px;
+      transition: background 0.3s;
+    }
+    .curr-topic:hover { background: var(--warm); }
+    .curr-topic-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; color: var(--gold); letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .curr-topic-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px; font-weight: 600; color: var(--ink);
+      line-height: 1.3; margin-bottom: 6px;
+    }
+    .curr-topic-desc {
+      font-size: 13px; color: var(--muted); line-height: 1.5;
+    }
+    .curr-bottom {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    .curr-bottom-block {}
+    .curr-bottom-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+    }
+    .curr-bottom-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 700; color: var(--ink);
+      margin-bottom: 12px; line-height: 1.2;
+    }
+    .curr-bottom-body {
+      font-size: 15px; color: var(--muted); line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .curr-examples {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .curr-example {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 0.5px;
+      background: var(--warm); color: var(--ink3);
+      padding: 7px 14px; border-radius: 1px;
+    }
+
     /* ─── CONTACT ───────────────────────────────────────────────── */
     #contact {
       background: var(--ink); padding: 120px 64px;
@@ -656,6 +720,8 @@
 
       #curriculum { padding: 72px 32px; }
       .curr-grid { grid-template-columns: 1fr 1fr; }
+      .curr-topics { grid-template-columns: repeat(3, 1fr); }
+      .curr-bottom { gap: 36px; }
 
       #contact { grid-template-columns: 1fr; padding: 72px 32px; gap: 48px; }
 
@@ -747,6 +813,16 @@
       .curr-card { padding: 24px 16px; }
       .curr-title { font-size: 17px; }
       .curr-level { font-size: 13px; }
+      .curr-content { margin-top: 52px; }
+      .curr-content-title { font-size: 22px; }
+      .curr-content-lead { font-size: 14px; }
+      .curr-topics { grid-template-columns: repeat(2, 1fr); margin-bottom: 40px; }
+      .curr-topic { padding: 20px 16px; }
+      .curr-topic-name { font-size: 14px; }
+      .curr-topic-desc { font-size: 12px; }
+      .curr-bottom { grid-template-columns: 1fr; gap: 36px; }
+      .curr-bottom-title { font-size: 19px; }
+      .curr-bottom-body { font-size: 14px; }
 
       #contact { padding: 52px 20px; }
       .contact-info { margin-top: 28px; gap: 20px; }
@@ -1227,7 +1303,92 @@
         <span class="curr-status-text">Model B</span>
       </div>
       <div class="curr-title">Ders Entegrasyonu</div>
-      <div class="curr-level">AI ve veri analizi, mevcut bilişim/yazılımmatematik ve doğa bilimleri (fizik, kimya, biyoloji) derslerine entegre edilir. Öğrenciler kendi ders içeriklerini veri ve yapay zekâ ile güçlendirir.</div>
+      <div class="curr-level">AI ve veri analizi, mevcut bilişim/yazılım, matematik ve doğa bilimleri (fizik, kimya, biyoloji) derslerine entegre edilir. Öğrenciler kendi ders içeriklerini veri ve yapay zekâ ile güçlendirir.</div>
+    </div>
+  </div>
+
+  <!-- Curriculum Content -->
+  <div class="curr-content">
+    <div class="curr-content-title fade-up">Ne öğrenilir?</div>
+    <p class="curr-content-lead fade-up d1">Temel kavramlardan ileri uygulamalara uzanan, her adımı pratiğe dayanan 10 modüllük bir yolculuk. Her modül teori, canlı demo ve ödev üçlüsüyle işlenir.</p>
+
+    <div class="curr-topics">
+      <div class="curr-topic fade-up">
+        <div class="curr-topic-num">01</div>
+        <div class="curr-topic-name">AI Temelleri & Ekosistem</div>
+        <div class="curr-topic-desc">ML iş akışı, model eğitimi, değerlendirme metrikleri</div>
+      </div>
+      <div class="curr-topic fade-up">
+        <div class="curr-topic-num">02</div>
+        <div class="curr-topic-name">Doğal Dil İşleme</div>
+        <div class="curr-topic-desc">Tokenizasyon, kelime gömmeleri, Word2Vec</div>
+      </div>
+      <div class="curr-topic fade-up">
+        <div class="curr-topic-num">03</div>
+        <div class="curr-topic-name">Transformer & LLM</div>
+        <div class="curr-topic-desc">Dikkat mekanizması, encoder/decoder, fine-tuning</div>
+      </div>
+      <div class="curr-topic fade-up">
+        <div class="curr-topic-num">04</div>
+        <div class="curr-topic-name">Prompt Mühendisliği</div>
+        <div class="curr-topic-desc">CoT, few-shot, güvenlik, yapılandırılmış çıktılar</div>
+      </div>
+      <div class="curr-topic fade-up">
+        <div class="curr-topic-num">05</div>
+        <div class="curr-topic-name">Agent Sistemleri</div>
+        <div class="curr-topic-desc">ReAct döngüsü, araç kullanımı, çok-ajanlı sistemler</div>
+      </div>
+      <div class="curr-topic fade-up">
+        <div class="curr-topic-num">06</div>
+        <div class="curr-topic-name">RAG</div>
+        <div class="curr-topic-desc">Embedding, vektör veritabanları, bilgi erişimi</div>
+      </div>
+      <div class="curr-topic fade-up">
+        <div class="curr-topic-num">07</div>
+        <div class="curr-topic-name">Bilgisayarla Görme</div>
+        <div class="curr-topic-desc">CNN mimarisi, nesne algılama, veri artırma</div>
+      </div>
+      <div class="curr-topic fade-up">
+        <div class="curr-topic-num">08</div>
+        <div class="curr-topic-name">Multimodal Üretim</div>
+        <div class="curr-topic-desc">Diffusion modeller, ses sentezi, video üretimi</div>
+      </div>
+      <div class="curr-topic fade-up">
+        <div class="curr-topic-num">09</div>
+        <div class="curr-topic-name">AI ile Yazılım Geliştirme</div>
+        <div class="curr-topic-desc">Git, Cursor, Lovable, AI destekli kodlama</div>
+      </div>
+      <div class="curr-topic fade-up">
+        <div class="curr-topic-num">10</div>
+        <div class="curr-topic-name">İş Akışı Otomasyonu</div>
+        <div class="curr-topic-desc">Vertex AI, kurumsal agent'lar, uçtan uca entegrasyon</div>
+      </div>
+    </div>
+
+    <div class="curr-bottom">
+      <div class="curr-bottom-block fade-up">
+        <div class="curr-bottom-tag">Bireysel Projeler</div>
+        <div class="curr-bottom-title">Her öğrenci kendi AI projesini geliştirir.</div>
+        <p class="curr-bottom-body">Dönem boyunca haftalık mentorluk eşliğinde fikir aşamasından çalışan ürüne kadar ilerleyen bireysel projeler. Öğrenciler gerçek araçlarla gerçek sorunlara çözüm üretir ve bir yazılım portföyü oluşturur.</p>
+        <div class="curr-examples">
+          <span class="curr-example">Portfolyo + AI Chatbot</span>
+          <span class="curr-example">Akıllı Ders Asistanı</span>
+          <span class="curr-example">İçerik Üretim Paneli</span>
+          <span class="curr-example">Mekan Öneri Uygulaması</span>
+          <span class="curr-example">Alışkanlık Takipçisi</span>
+        </div>
+      </div>
+      <div class="curr-bottom-block fade-up d1">
+        <div class="curr-bottom-tag">Hackathon & Final Sunumu</div>
+        <div class="curr-bottom-title">Dönem sonu: sahneye çıkma zamanı.</div>
+        <p class="curr-bottom-body">Her dönem, öğrenciler projelerini jüri ve akranları önünde sunar. Canlı demo, teknik soru-cevap ve akran değerlendirmesiyle yetkinlikler somut biçimde kanıtlanır. En iyi projeler okul genelinde sergilenir.</p>
+        <div class="curr-examples">
+          <span class="curr-example">10 dk Sunum</span>
+          <span class="curr-example">Canlı Demo</span>
+          <span class="curr-example">Akran Değerlendirmesi</span>
+          <span class="curr-example">Jüri Geri Bildirimi</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>

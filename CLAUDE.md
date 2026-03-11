@@ -38,6 +38,10 @@ All user-facing content is in **Turkish**. Code-level naming (CSS classes, JS) i
 - The contact form (`#contactForm`) is UI-only — `submitForm()` shows a success message but does not POST anywhere; a real backend needs to be wired in
 - Color palette: ink blues (`#0A1628`, `#111E30`, `#1C2E45`), gold accents (`#B8922A`, `#D4AC50`, `#EDD07C`), parchment backgrounds (`#F7F3EC`, `#EEE8DC`, `#E5DDD0`)
 
+## Repository
+
+GitHub: `git@github.com:kozb/K12-AI-Lab.git`
+
 ## Deployment
 
 Upload `index.html` and PDFs to any static host. Cloudflare is currently used.

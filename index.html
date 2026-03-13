@@ -114,6 +114,50 @@
     }
     .mobile-menu .btn-nav { margin-top: 20px; text-align: center; width: 100%; display: block; padding: 16px; }
 
+    /* Language toggle */
+    .lang-toggle {
+      display: flex; align-items: center; gap: 0;
+      background: rgba(255,255,255,0.08);
+      border-radius: 2px; overflow: hidden;
+      margin-right: 12px;
+    }
+    .lang-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 1px;
+      padding: 7px 12px;
+      border: none; cursor: pointer;
+      background: transparent;
+      color: rgba(255,255,255,0.4);
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-btn.active {
+      background: var(--gold2);
+      color: var(--ink);
+    }
+
+    /* ─── LANG TOGGLE ────────────────────────────────────────── */
+    .lang-toggle {
+      display: flex; align-items: center; gap: 0;
+      background: rgba(255,255,255,0.08);
+      border-radius: 2px; overflow: hidden;
+      margin-right: 4px;
+    }
+    .lang-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 1px;
+      padding: 7px 12px;
+      border: none; cursor: pointer;
+      background: transparent;
+      color: rgba(255,255,255,0.4);
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-btn.active {
+      background: var(--gold2);
+      color: var(--ink);
+    }
+
     /* ─── HERO ─────────────────────────────────────────────────── */
     #hero {
       min-height: 100vh;
@@ -844,18 +888,22 @@
 <nav id="nav">
   <a class="nav-brand" href="#">
     <span class="nav-brand-main">K12 <span>AI Lab</span></span>
-    <span class="nav-brand-sub">Akademik Danışmanlık</span>
+    <span class="nav-brand-sub" data-i18n="nav-sub">Akademik Danışmanlık</span>
   </a>
   <div class="nav-center">
-    <a class="nav-link" href="#about">Yaklaşımımız</a>
-    <a class="nav-link" href="#services">Hizmetler</a>
-    <a class="nav-link" href="#hackathon">Hackathon</a>
-    <a class="nav-link" href="#growth">Süreç</a>
-    <a class="nav-link" href="#curriculum">Müfredat</a>
-    <a class="nav-link" href="#contact">İletişim</a>
+    <a class="nav-link" href="#about" data-i18n="nav-about">Yaklaşımımız</a>
+    <a class="nav-link" href="#services" data-i18n="nav-services">Hizmetler</a>
+    <a class="nav-link" href="#hackathon" data-i18n="nav-hackathon">Hackathon</a>
+    <a class="nav-link" href="#growth" data-i18n="nav-process">Süreç</a>
+    <a class="nav-link" href="#curriculum" data-i18n="nav-curriculum">Müfredat</a>
+    <a class="nav-link" href="#contact" data-i18n="nav-contact">İletişim</a>
   </div>
   <div class="nav-right">
-    <a class="btn-nav" href="#contact">Görüşme Talep Et</a>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('tr')">TR</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+    <a class="btn-nav" href="#contact" data-i18n="nav-cta">Görüşme Talep Et</a>
     <div class="nav-hamburger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
     </div>
@@ -863,28 +911,32 @@
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a class="nav-link" href="#about" onclick="closeMenu()">Yaklaşımımız</a>
-  <a class="nav-link" href="#services" onclick="closeMenu()">Hizmetler</a>
-  <a class="nav-link" href="#hackathon" onclick="closeMenu()">Hackathon</a>
-  <a class="nav-link" href="#growth" onclick="closeMenu()">Süreç</a>
-  <a class="nav-link" href="#curriculum" onclick="closeMenu()">Müfredat</a>
-  <a class="nav-link" href="#contact" onclick="closeMenu()">İletişim</a>
-  <a class="btn-nav" href="#contact" onclick="closeMenu()">Görüşme Talep Et</a>
+  <a class="nav-link" href="#about" onclick="closeMenu()" data-i18n="nav-about-m">Yaklaşımımız</a>
+  <a class="nav-link" href="#services" onclick="closeMenu()" data-i18n="nav-services-m">Hizmetler</a>
+  <a class="nav-link" href="#hackathon" onclick="closeMenu()" data-i18n="nav-hackathon-m">Hackathon</a>
+  <a class="nav-link" href="#growth" onclick="closeMenu()" data-i18n="nav-process-m">Süreç</a>
+  <a class="nav-link" href="#curriculum" onclick="closeMenu()" data-i18n="nav-curriculum-m">Müfredat</a>
+  <a class="nav-link" href="#contact" onclick="closeMenu()" data-i18n="nav-contact-m">İletişim</a>
+  <div class="lang-toggle" style="margin: 12px 0;">
+    <button class="lang-btn active" onclick="setLang('tr')">TR</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+  <a class="btn-nav" href="#contact" onclick="closeMenu()" data-i18n="nav-cta-m">Görüşme Talep Et</a>
 </div>
 
 <!-- HERO -->
 <section id="hero">
 
   <div class="hero-content">
-    <div class="hero-h1 fade-up d1">Okulunuzu <em>yapay zekâ</em></div>
-    <div class="hero-h1-b fade-up d2">çağına taşıyoruz.</div>
-    <p class="hero-lead fade-up d3">
+    <div class="hero-h1 fade-up d1" data-i18n="hero-h1">Okulunuzu <em>yapay zekâ</em></div>
+    <div class="hero-h1-b fade-up d2" data-i18n="hero-h1b">çağına taşıyoruz.</div>
+    <p class="hero-lead fade-up d3" data-i18n="hero-lead">
       Okullarda AI ve veri eğitimi altyapısı kuran, müfredat tasarlayan ve kurumsal dönüşümü yöneten akademik danışmanlık şirketiyiz. Öğrenciler gerçek projeler üretir, dönemlik hackathonlarla yetkinliklerini kanıtlar.
     </p>
     <div class="hero-actions fade-up d4">
-      <a class="btn-primary" href="#contact">Görüşme Talep Et</a>
+      <a class="btn-primary" href="#contact" data-i18n="hero-cta">Görüşme Talep Et</a>
       <a class="btn-ghost" href="#about">
-        Daha Fazla Bilgi
+        <span data-i18n="hero-ghost">Daha Fazla Bilgi</span>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
@@ -895,19 +947,19 @@
   <div class="hero-stats fade-up d5">
     <div class="hero-stat">
       <div class="hero-stat-num">6</div>
-      <div class="hero-stat-label">Hizmet Bileşeni</div>
+      <div class="hero-stat-label" data-i18n="stat-1">Hizmet Bileşeni</div>
     </div>
     <div class="hero-stat">
       <div class="hero-stat-num">2×</div>
-      <div class="hero-stat-label">Yıllık Hackathon</div>
+      <div class="hero-stat-label" data-i18n="stat-2">Yıllık Hackathon</div>
     </div>
     <div class="hero-stat">
       <div class="hero-stat-num">IB/AP</div>
-      <div class="hero-stat-label">Program Uyumu</div>
+      <div class="hero-stat-label" data-i18n="stat-3">Program Uyumu</div>
     </div>
     <div class="hero-stat">
       <div class="hero-stat-num">3</div>
-      <div class="hero-stat-label">Yıllık Yol Haritası</div>
+      <div class="hero-stat-label" data-i18n="stat-4">Yıllık Yol Haritası</div>
     </div>
   </div>
 </section>
@@ -915,72 +967,72 @@
 <!-- MARQUEE -->
 <div id="marquee">
   <div class="marquee-track">
-    <div class="marquee-item">Proje Temelli Öğrenme <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Dönemlik Hackathon <div class="marquee-dot"></div></div>
-    <div class="marquee-item">AI + Veri Müfredatı <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Öğretmen Akademisi <div class="marquee-dot"></div></div>
-    <div class="marquee-item">IB/AP Uyumlu Program <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Kurumsal Dönüşüm <div class="marquee-dot"></div></div>
-    <div class="marquee-item">K12 Eğitim Dönüşümü <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Etki Ölçümü <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Proje Temelli Öğrenme <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Dönemlik Hackathon <div class="marquee-dot"></div></div>
-    <div class="marquee-item">AI + Veri Müfredatı <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Öğretmen Akademisi <div class="marquee-dot"></div></div>
-    <div class="marquee-item">IB/AP Uyumlu Program <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Kurumsal Dönüşüm <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Akademik Danışmanlık <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Etki Ölçümü <div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span data-i18n="mq-1">Proje Temelli Öğrenme</span> <div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span data-i18n="mq-2">Dönemlik Hackathon</span> <div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span data-i18n="mq-3">AI + Veri Müfredatı</span> <div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span data-i18n="mq-4">Öğretmen Akademisi</span> <div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span data-i18n="mq-5">IB/AP Uyumlu Program</span> <div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span data-i18n="mq-6">Kurumsal Dönüşüm</span> <div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span data-i18n="mq-7">K12 Eğitim Dönüşümü</span> <div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span data-i18n="mq-8">Etki Ölçümü</span> <div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span data-i18n="mq-1">Proje Temelli Öğrenme</span> <div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span data-i18n="mq-2">Dönemlik Hackathon</span> <div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span data-i18n="mq-3">AI + Veri Müfredatı</span> <div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span data-i18n="mq-4">Öğretmen Akademisi</span> <div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span data-i18n="mq-5">IB/AP Uyumlu Program</span> <div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span data-i18n="mq-6">Kurumsal Dönüşüm</span> <div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span data-i18n="mq-9">Akademik Danışmanlık</span> <div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span data-i18n="mq-8">Etki Ölçümü</span> <div class="marquee-dot"></div></div>
   </div>
 </div>
 
 <!-- ABOUT -->
 <section id="about">
   <div class="about-left">
-    <div class="section-tag fade-up">Yaklaşımımız</div>
-    <h2 class="section-h2 fade-up d1">
+    <div class="section-tag fade-up" data-i18n="about-tag">Yaklaşımımız</div>
+    <h2 class="section-h2 fade-up d1" data-i18n="about-h2">
       Öğrenciler <em>proje üretir,</em><br><strong>yetkinliklerini kanıtlar.</strong>
     </h2>
-    <p class="about-body fade-up d2">
+    <p class="about-body fade-up d2" data-i18n="about-body1">
       K12 AI Lab, okullarda yapay zekâ ve veri eğitimi altyapısını baştan tasarlayan akademik danışmanlık şirketidir. Bütünü görürüz: müfredat, öğretmen, ölçüm — hepsi birlikte kurgulanır.
     </p>
-    <p class="about-body fade-up d3">
+    <p class="about-body fade-up d3" data-i18n="about-body2">
       Programın merkezinde <strong>proje temelli öğrenme</strong> yer alır. Öğrenciler gerçek veri problemleri üzerinde çalışır, dönem sonunda ürünlerini sunar. Her dönem sonu yapılan <strong>hackathonlar</strong>, bu öğrenmeyi rekabetçi ve ölçülebilir hale getirir.
     </p>
     <div class="quote-pull fade-up d4">
-      <p>"Okullarda Yapay Zekâ ve Veri eğitimi altyapısını kuran ve kurumsal dönüşümü yöneten akademik danışmanlık şirketi."</p>
+      <p data-i18n="about-quote">"Okullarda Yapay Zekâ ve Veri eğitimi altyapısını kuran ve kurumsal dönüşümü yöneten akademik danışmanlık şirketi."</p>
     </div>
   </div>
 
   <div class="about-right fade-up d2">
-    <div class="section-tag">Temel İlkelerimiz</div>
+    <div class="section-tag" data-i18n="about-pillars-tag">Temel İlkelerimiz</div>
     <div class="about-pillars">
       <div class="pillar">
         <div class="pillar-num">01</div>
         <div>
-          <div class="pillar-title">Sistematik Dönüşüm</div>
-          <p class="pillar-body">Tek seferlik eğitim değil; analiz, tasarım, uygulama ve ölçüm döngüsünden oluşan bütüncül bir kurumsal dönüşüm sistemi. Her okul için özel yol haritası.</p>
+          <div class="pillar-title" data-i18n="pillar-t1">Sistematik Dönüşüm</div>
+          <p class="pillar-body" data-i18n="pillar-b1">Tek seferlik eğitim değil; analiz, tasarım, uygulama ve ölçüm döngüsünden oluşan bütüncül bir kurumsal dönüşüm sistemi. Her okul için özel yol haritası.</p>
         </div>
       </div>
       <div class="pillar">
         <div class="pillar-num">02</div>
         <div>
-          <div class="pillar-title">Proje ve Uygulama Odaklı</div>
-          <p class="pillar-body">Müfredatın her birimi somut bir proje çıktısına bağlıdır. Öğrenciler teorik bilgiyi gerçek dünya problemlerine uygular ve portföy oluşturur.</p>
+          <div class="pillar-title" data-i18n="pillar-t2">Proje ve Uygulama Odaklı</div>
+          <p class="pillar-body" data-i18n="pillar-b2">Müfredatın her birimi somut bir proje çıktısına bağlıdır. Öğrenciler teorik bilgiyi gerçek dünya problemlerine uygular ve portföy oluşturur.</p>
         </div>
       </div>
       <div class="pillar">
         <div class="pillar-num">03</div>
         <div>
-          <div class="pillar-title">Öğretmen Merkezli Kapasite</div>
-          <p class="pillar-body">Programı taşıyan öğretmendir. Mentorluk ve sürekli gelişim ile öğretmen dönüşümün asıl öznesi haline gelir.</p>
+          <div class="pillar-title" data-i18n="pillar-t3">Öğretmen Merkezli Kapasite</div>
+          <p class="pillar-body" data-i18n="pillar-b3">Programı taşıyan öğretmendir. Mentorluk ve sürekli gelişim ile öğretmen dönüşümün asıl öznesi haline gelir.</p>
         </div>
       </div>
       <div class="pillar">
         <div class="pillar-num">04</div>
         <div>
-          <div class="pillar-title">Akademik Güvenilirlik</div>
-          <p class="pillar-body">IB/AP uyumlu müfredat çerçevesi, akademik danışma kurulu desteği ve yıllık etki raporuyla programın değeri somut verilerle kanıtlanır.</p>
+          <div class="pillar-title" data-i18n="pillar-t4">Akademik Güvenilirlik</div>
+          <p class="pillar-body" data-i18n="pillar-b4">IB/AP uyumlu müfredat çerçevesi, akademik danışma kurulu desteği ve yıllık etki raporuyla programın değeri somut verilerle kanıtlanır.</p>
         </div>
       </div>
     </div>
@@ -991,18 +1043,18 @@
 <section id="why-dynamic">
   <div class="why-dynamic-grid">
     <div>
-      <div class="section-tag light fade-up">Neden Farklıyız</div>
-      <h2 class="section-h2 fade-up d1" style="color:var(--white)">
+      <div class="section-tag light fade-up" data-i18n="why-tag">Neden Farklıyız</div>
+      <h2 class="section-h2 fade-up d1" style="color:var(--white)" data-i18n="why-h2">
         Statik müfredat,<br><strong>hızla eskir.</strong>
       </h2>
-      <p class="about-body fade-up d2" style="color: rgba(255,255,255,0.5);">
+      <p class="about-body fade-up d2" style="color: rgba(255,255,255,0.5);" data-i18n="why-body1">
         Yapay zekâ her ay yeni bir sıçrama yapıyor. Geleneksel müfredatlar bu hızı yakalayamaz — basıldığı gün güncelliğini yitirir. Eğitim programı kadar, o programı verecek öğretmenlerin bilgi ve becerileri de sürekli güncellenmek zorundadır.
       </p>
-      <p class="about-body fade-up d3" style="color: rgba(255,255,255,0.5);">
+      <p class="about-body fade-up d3" style="color: rgba(255,255,255,0.5);" data-i18n="why-body2">
         Bu yüzden ekibimiz hem <strong style="color:var(--white);">teknik AI uzmanlığını</strong> hem de <strong style="color:var(--white);">eğitim bilimi yetkinliğini</strong> bir arada taşır. Müfredatı güncel tutar, öğretmenleri sürekli destekler ve programın alandaki gelişmelere paralel evrilmesini sağlarız.
       </p>
       <div class="quote-pull fade-up d4">
-        <p>"AI alanında durağan bir müfredat, öğrencileri dünün dünyasına hazırlar. Biz yarının dünyasını hedefliyoruz."</p>
+        <p data-i18n="why-quote">"AI alanında durağan bir müfredat, öğrencileri dünün dünyasına hazırlar. Biz yarının dünyasını hedefliyoruz."</p>
       </div>
     </div>
 
@@ -1011,29 +1063,29 @@
         <div class="pillar" style="border-color: rgba(255,255,255,0.08);">
           <div class="pillar-num" style="color: var(--gold2);">01</div>
           <div>
-            <div class="pillar-title" style="color: var(--white);">Yaşayan Müfredat</div>
-            <p class="pillar-body" style="color: rgba(255,255,255,0.4);">İçerik sabit değildir. Alandaki gelişmelere göre düzenli olarak güncellenir. Öğrenciler güncel araçlar ve yöntemlerle çalışır.</p>
+            <div class="pillar-title" style="color: var(--white);" data-i18n="why-pt1">Yaşayan Müfredat</div>
+            <p class="pillar-body" style="color: rgba(255,255,255,0.4);" data-i18n="why-pb1">İçerik sabit değildir. Alandaki gelişmelere göre düzenli olarak güncellenir. Öğrenciler güncel araçlar ve yöntemlerle çalışır.</p>
           </div>
         </div>
         <div class="pillar" style="border-color: rgba(255,255,255,0.08);">
           <div class="pillar-num" style="color: var(--gold2);">02</div>
           <div>
-            <div class="pillar-title" style="color: var(--white);">Sürekli Öğretmen Gelişimi</div>
-            <p class="pillar-body" style="color: rgba(255,255,255,0.4);">Öğretmenler yalnızca başlangıçta değil, program boyunca mentorluk ve eğitim desteği alır. Alandaki yeniliklere birlikte adapte oluruz.</p>
+            <div class="pillar-title" style="color: var(--white);" data-i18n="why-pt2">Sürekli Öğretmen Gelişimi</div>
+            <p class="pillar-body" style="color: rgba(255,255,255,0.4);" data-i18n="why-pb2">Öğretmenler yalnızca başlangıçta değil, program boyunca mentorluk ve eğitim desteği alır. Alandaki yeniliklere birlikte adapte oluruz.</p>
           </div>
         </div>
         <div class="pillar" style="border-color: rgba(255,255,255,0.08);">
           <div class="pillar-num" style="color: var(--gold2);">03</div>
           <div>
-            <div class="pillar-title" style="color: var(--white);">Proje ve Uygulama Zorunluluğu</div>
-            <p class="pillar-body" style="color: rgba(255,255,255,0.4);">AI'ın doğası teorik anlatımla kavranamaz. Öğrenciler gerçek veri setleriyle çalışır, model kurar ve somut çıktılar üretir. Öğrenme ancak yaparak gerçekleşir.</p>
+            <div class="pillar-title" style="color: var(--white);" data-i18n="why-pt3">Proje ve Uygulama Zorunluluğu</div>
+            <p class="pillar-body" style="color: rgba(255,255,255,0.4);" data-i18n="why-pb3">AI'ın doğası teorik anlatımla kavranamaz. Öğrenciler gerçek veri setleriyle çalışır, model kurar ve somut çıktılar üretir. Öğrenme ancak yaparak gerçekleşir.</p>
           </div>
         </div>
         <div class="pillar" style="border-color: rgba(255,255,255,0.08);">
           <div class="pillar-num" style="color: var(--gold2);">04</div>
           <div>
-            <div class="pillar-title" style="color: var(--white);">Teknik + Pedagojik Uzmanlık</div>
-            <p class="pillar-body" style="color: rgba(255,255,255,0.4);">Ekibimiz AI alanında teknik derinliğe, eğitim biliminde ise pedagojik tasarım yetkinliğine sahiptir. Bu iki disiplinin kesişimi programımızın temelini oluşturur.</p>
+            <div class="pillar-title" style="color: var(--white);" data-i18n="why-pt4">Teknik + Pedagojik Uzmanlık</div>
+            <p class="pillar-body" style="color: rgba(255,255,255,0.4);" data-i18n="why-pb4">Ekibimiz AI alanında teknik derinliğe, eğitim biliminde ise pedagojik tasarım yetkinliğine sahiptir. Bu iki disiplinin kesişimi programımızın temelini oluşturur.</p>
           </div>
         </div>
       </div>
@@ -1045,12 +1097,12 @@
 <section id="services">
   <div class="services-header">
     <div>
-      <div class="section-tag light fade-up">Hizmet Paketi</div>
-      <h2 class="section-h2 fade-up d1" style="color:var(--white)">
+      <div class="section-tag light fade-up" data-i18n="svc-tag">Hizmet Paketi</div>
+      <h2 class="section-h2 fade-up d1" style="color:var(--white)" data-i18n="svc-h2">
         Altı bileşen,<br><strong>bir dönüşüm sistemi.</strong>
       </h2>
     </div>
-    <p class="services-desc fade-up d2">
+    <p class="services-desc fade-up d2" data-i18n="svc-desc">
       Her bileşen birbirini tamamlar. Müfredat olmadan öğretmen eğitimi, ölçüm olmadan atölye anlamsızdır. Bütünü birlikte tasarlarız.
     </p>
   </div>
@@ -1059,44 +1111,44 @@
     <div class="svc-card fade-up">
       <div class="svc-num">01</div>
       <span class="svc-icon">🔬</span>
-      <div class="svc-title">Kurumsal Analiz</div>
-      <p class="svc-body">Okulun mevcut altyapısını, öğretmen yetkinliklerini ve teknolojik hazırlık düzeyini değerlendiriyor; kuruma özgü dönüşüm yol haritasını birlikte inşa ediyoruz.</p>
-      <div class="svc-tags"><span class="svc-tag">Altyapı</span><span class="svc-tag">Yetkinlik</span><span class="svc-tag">Yol Haritası</span></div>
+      <div class="svc-title" data-i18n="svc-t1">Kurumsal Analiz</div>
+      <p class="svc-body" data-i18n="svc-b1">Okulun mevcut altyapısını, öğretmen yetkinliklerini ve teknolojik hazırlık düzeyini değerlendiriyor; kuruma özgü dönüşüm yol haritasını birlikte inşa ediyoruz.</p>
+      <div class="svc-tags"><span class="svc-tag" data-i18n="svctag-1-1">Altyapı</span><span class="svc-tag" data-i18n="svctag-1-2">Yetkinlik</span><span class="svc-tag" data-i18n="svctag-1-3">Yol Haritası</span></div>
     </div>
     <div class="svc-card fade-up d1">
       <div class="svc-num">02</div>
       <span class="svc-icon">📐</span>
-      <div class="svc-title">Müfredat Tasarımı</div>
-      <p class="svc-body">Ortaokul ve lise için proje temelli AI + Veri programları, ders planları, proje çerçeveleri ve IB/AP uyumlu değerlendirme rubriklerini tasarlıyoruz.</p>
-      <div class="svc-tags"><span class="svc-tag">IB/AP Uyumlu</span><span class="svc-tag">Proje Temelli</span><span class="svc-tag">Araştırma</span></div>
+      <div class="svc-title" data-i18n="svc-t2">Müfredat Tasarımı</div>
+      <p class="svc-body" data-i18n="svc-b2">Ortaokul ve lise için proje temelli AI + Veri programları, ders planları, proje çerçeveleri ve IB/AP uyumlu değerlendirme rubriklerini tasarlıyoruz.</p>
+      <div class="svc-tags"><span class="svc-tag" data-i18n="svctag-2-1">IB/AP Uyumlu</span><span class="svc-tag" data-i18n="svctag-2-2">Proje Temelli</span><span class="svc-tag" data-i18n="svctag-2-3">Araştırma</span></div>
     </div>
     <div class="svc-card fade-up d2">
       <div class="svc-num">03</div>
       <span class="svc-icon">🎓</span>
-      <div class="svc-title">Öğretmen Akademisi</div>
-      <p class="svc-body">Yoğun başlangıç eğitimi ve aylık mentorluk ile öğretmeni programın gerçek sahibi yapan kapsamlı bir kapasite geliştirme süreci.</p>
-      <div class="svc-tags"><span class="svc-tag">Eğitim</span><span class="svc-tag">Mentorluk</span><span class="svc-tag">Sürekli Gelişim</span></div>
+      <div class="svc-title" data-i18n="svc-t3">Öğretmen Akademisi</div>
+      <p class="svc-body" data-i18n="svc-b3">Yoğun başlangıç eğitimi ve aylık mentorluk ile öğretmeni programın gerçek sahibi yapan kapsamlı bir kapasite geliştirme süreci.</p>
+      <div class="svc-tags"><span class="svc-tag" data-i18n="svctag-3-1">Eğitim</span><span class="svc-tag" data-i18n="svctag-3-2">Mentorluk</span><span class="svc-tag" data-i18n="svctag-3-3">Sürekli Gelişim</span></div>
     </div>
     <div class="svc-card fade-up d1">
       <div class="svc-num">04</div>
       <span class="svc-icon">⚡</span>
-      <div class="svc-title">Öğrenci Proje Atölyeleri</div>
-      <p class="svc-body">Veri analizi, modelleme ve proje geliştirmeden sunum hazırlığına uzanan uygulamalı atölyeler. Her ders birimi somut bir proje çıktısına bağlıdır.</p>
-      <div class="svc-tags"><span class="svc-tag">Hands-on</span><span class="svc-tag">Veri Analizi</span><span class="svc-tag">Modelleme</span></div>
+      <div class="svc-title" data-i18n="svc-t4">Öğrenci Proje Atölyeleri</div>
+      <p class="svc-body" data-i18n="svc-b4">Veri analizi, modelleme ve proje geliştirmeden sunum hazırlığına uzanan uygulamalı atölyeler. Her ders birimi somut bir proje çıktısına bağlıdır.</p>
+      <div class="svc-tags"><span class="svc-tag" data-i18n="svctag-4-1">Hands-on</span><span class="svc-tag" data-i18n="svctag-4-2">Veri Analizi</span><span class="svc-tag" data-i18n="svctag-4-3">Modelleme</span></div>
     </div>
     <div class="svc-card fade-up d2">
       <div class="svc-num">05</div>
       <span class="svc-icon">🏛️</span>
-      <div class="svc-title">Dönemlik Hackathon</div>
-      <p class="svc-body">Her dönem sonunda yapılan hackathon ile öğrenciler yetkinliklerini rekabetçi ortamda kanıtlar. Akademisyen jürisi değerlendirir, en iyi projeler ödüllendirilir.</p>
-      <div class="svc-tags"><span class="svc-tag">Rekabetçi</span><span class="svc-tag">Jürili</span><span class="svc-tag">Ödüllü</span></div>
+      <div class="svc-title" data-i18n="svc-t5">Dönemlik Hackathon</div>
+      <p class="svc-body" data-i18n="svc-b5">Her dönem sonunda yapılan hackathon ile öğrenciler yetkinliklerini rekabetçi ortamda kanıtlar. Akademisyen jürisi değerlendirir, en iyi projeler ödüllendirilir.</p>
+      <div class="svc-tags"><span class="svc-tag" data-i18n="svctag-5-1">Rekabetçi</span><span class="svc-tag" data-i18n="svctag-5-2">Jürili</span><span class="svc-tag" data-i18n="svctag-5-3">Ödüllü</span></div>
     </div>
     <div class="svc-card fade-up d3">
       <div class="svc-num">06</div>
       <span class="svc-icon">📊</span>
-      <div class="svc-title">Etki Ölçümü</div>
-      <p class="svc-body">Öğrenci çıktıları, öğretmen gelişimi ve kurumsal ilerleme göstergelerini kapsayan yıllık etki raporu ile programın değeri somut veriyle kanıtlanır.</p>
-      <div class="svc-tags"><span class="svc-tag">Veri Odaklı</span><span class="svc-tag">Şeffaflık</span><span class="svc-tag">ROI</span></div>
+      <div class="svc-title" data-i18n="svc-t6">Etki Ölçümü</div>
+      <p class="svc-body" data-i18n="svc-b6">Öğrenci çıktıları, öğretmen gelişimi ve kurumsal ilerleme göstergelerini kapsayan yıllık etki raporu ile programın değeri somut veriyle kanıtlanır.</p>
+      <div class="svc-tags"><span class="svc-tag" data-i18n="svctag-6-1">Veri Odaklı</span><span class="svc-tag" data-i18n="svctag-6-2">Şeffaflık</span><span class="svc-tag" data-i18n="svctag-6-3">ROI</span></div>
     </div>
   </div>
 </section>
@@ -1104,12 +1156,12 @@
 <!-- HACKATHON -->
 <section id="hackathon">
   <div class="hackathon-left">
-    <div class="hackathon-tag">Dönemlik Hackathon</div>
-    <h2 class="hackathon-h2">Öğrenmek yetmez.<br>Kanıtlamak gerekir.</h2>
-    <p class="hackathon-body">
+    <div class="hackathon-tag" data-i18n="hack-tag">Dönemlik Hackathon</div>
+    <h2 class="hackathon-h2" data-i18n="hack-h2">Öğrenmek yetmez.<br>Kanıtlamak gerekir.</h2>
+    <p class="hackathon-body" data-i18n="hack-body1">
       Her dönem sonunda tüm öğrenciler 24–48 saatlik hackathon formatında gerçek bir problemi çözer. Bu sadece bir sınav değil; öğrencinin düşünme biçimini, takım çalışmasını ve teknik yetkinliğini aynı anda gösteren bir platform.
     </p>
-    <p class="hackathon-body" style="margin-top:16px">
+    <p class="hackathon-body" style="margin-top:16px" data-i18n="hack-body2">
       Hackathon sonuçları yıllık etki raporuna girer, öğrenci portföyüne eklenir ve kurumun akademik prestijini güçlendiren somut bir çıktıya dönüşür.
     </p>
   </div>
@@ -1118,29 +1170,29 @@
       <div class="hackathon-card">
         <div class="hackathon-card-icon">🎯</div>
         <div>
-          <div class="hackathon-card-title">Gerçek Problem, Gerçek Çözüm</div>
-          <p class="hackathon-card-body">Öğrenciler simüle edilmiş değil, gerçek veri setleri ve gerçek dünya problemleriyle çalışır. Sonuç uygulanabilir bir ürün veya analizdir.</p>
+          <div class="hackathon-card-title" data-i18n="hack-ct1">Gerçek Problem, Gerçek Çözüm</div>
+          <p class="hackathon-card-body" data-i18n="hack-cb1">Öğrenciler simüle edilmiş değil, gerçek veri setleri ve gerçek dünya problemleriyle çalışır. Sonuç uygulanabilir bir ürün veya analizdir.</p>
         </div>
       </div>
       <div class="hackathon-card">
         <div class="hackathon-card-icon">👥</div>
         <div>
-          <div class="hackathon-card-title">Takım Dinamiği ve Liderlik</div>
-          <p class="hackathon-card-body">Disiplinlerarası takımlar kurulur. Teknik yetkinlik kadar iletişim, planlama ve liderlik becerileri de değerlendirilir.</p>
+          <div class="hackathon-card-title" data-i18n="hack-ct2">Takım Dinamiği ve Liderlik</div>
+          <p class="hackathon-card-body" data-i18n="hack-cb2">Disiplinlerarası takımlar kurulur. Teknik yetkinlik kadar iletişim, planlama ve liderlik becerileri de değerlendirilir.</p>
         </div>
       </div>
       <div class="hackathon-card">
         <div class="hackathon-card-icon">🏅</div>
         <div>
-          <div class="hackathon-card-title">Akademik Jüri ve Ödüller</div>
-          <p class="hackathon-card-body">Akademisyenler ve sektör profesyonellerinden oluşan jüri değerlendirir. En iyi projeler ödüllendirilir ve ulusal zirvede sergilenir.</p>
+          <div class="hackathon-card-title" data-i18n="hack-ct3">Akademik Jüri ve Ödüller</div>
+          <p class="hackathon-card-body" data-i18n="hack-cb3">Akademisyenler ve sektör profesyonellerinden oluşan jüri değerlendirir. En iyi projeler ödüllendirilir ve ulusal zirvede sergilenir.</p>
         </div>
       </div>
       <div class="hackathon-card">
         <div class="hackathon-card-icon">📁</div>
         <div>
-          <div class="hackathon-card-title">Portföy ve Akademik Belge</div>
-          <p class="hackathon-card-body">Her öğrencinin hackathon çıktısı belgelenerek kişisel portföyüne eklenir. Üniversite başvurularında güçlü bir akademik kanıt niteliği taşır.</p>
+          <div class="hackathon-card-title" data-i18n="hack-ct4">Portföy ve Akademik Belge</div>
+          <p class="hackathon-card-body" data-i18n="hack-cb4">Her öğrencinin hackathon çıktısı belgelenerek kişisel portföyüne eklenir. Üniversite başvurularında güçlü bir akademik kanıt niteliği taşır.</p>
         </div>
       </div>
     </div>
@@ -1151,16 +1203,16 @@
 <section id="growth">
   <div class="growth-inner">
     <div class="growth-left">
-      <div class="section-tag fade-up">Büyüme Stratejisi</div>
-      <h2 class="section-h2 fade-up d1">
+      <div class="section-tag fade-up" data-i18n="growth-tag">Büyüme Stratejisi</div>
+      <h2 class="section-h2 fade-up d1" data-i18n="growth-h2">
         Kanıtla,<br>sonra<br><strong>ölçeklen.</strong>
       </h2>
-      <p class="section-lead fade-up d2">
+      <p class="section-lead fade-up d2" data-i18n="growth-lead">
         Sistematik bir büyüme modeli izliyoruz. Her aşama, bir öncekinin çıktıları üzerine inşa edilir.
       </p>
       <div class="north-star fade-up d3">
-        <div class="north-star-label">★ Büyüme Felsefemiz</div>
-        <p class="north-star-text">Önce <strong>doğru modeli kurmak</strong>, sonra <strong>ölçeklendirmek</strong>. Her yıl bir önceki yılın deneyimlerinden beslenen, veriye dayalı ve sürdürülebilir bir büyüme stratejisi.</p>
+        <div class="north-star-label" data-i18n="growth-ns-label">★ Büyüme Felsefemiz</div>
+        <p class="north-star-text" data-i18n="growth-ns-text">Önce <strong>doğru modeli kurmak</strong>, sonra <strong>ölçeklendirmek</strong>. Her yıl bir önceki yılın deneyimlerinden beslenen, veriye dayalı ve sürdürülebilir bir büyüme stratejisi.</p>
       </div>
     </div>
 
@@ -1171,14 +1223,14 @@
           <div class="phase-tag">2026</div>
         </div>
         <div class="phase-body">
-          <div class="phase-label">Yıl 1</div>
-          <div class="phase-title">Model Doğrulama</div>
-          <p class="phase-desc">2–3 pilot okulda derin uygulama. Müfredat olgunlaştırma, hackathon formatını test etme ve referans üretimi. Büyüme değil, iz bırakma yılı.</p>
+          <div class="phase-label" data-i18n="phase-l1">Yıl 1</div>
+          <div class="phase-title" data-i18n="phase-t1">Model Doğrulama</div>
+          <p class="phase-desc" data-i18n="phase-d1">2–3 pilot okulda derin uygulama. Müfredat olgunlaştırma, hackathon formatını test etme ve referans üretimi. Büyüme değil, iz bırakma yılı.</p>
           <div class="chips">
-            <span class="chip">2–3 Pilot Okul</span>
-            <span class="chip">İlk Hackathon</span>
-            <span class="chip">Müfredat Olgunlaştırma</span>
-            <span class="chip">Referans Üretimi</span>
+            <span class="chip" data-i18n="chip-1-1">2–3 Pilot Okul</span>
+            <span class="chip" data-i18n="chip-1-2">İlk Hackathon</span>
+            <span class="chip" data-i18n="chip-1-3">Müfredat Olgunlaştırma</span>
+            <span class="chip" data-i18n="chip-1-4">Referans Üretimi</span>
           </div>
         </div>
       </div>
@@ -1189,13 +1241,13 @@
           <div class="phase-tag">2027</div>
         </div>
         <div class="phase-body">
-          <div class="phase-label">Yıl 2</div>
-          <div class="phase-title">Ölçeklenme</div>
-          <p class="phase-desc">10+ okula genişleme ve dijital platform kurulumu. Hackathonlar okullar arası rekabetçi formata taşınır.</p>
+          <div class="phase-label" data-i18n="phase-l2">Yıl 2</div>
+          <div class="phase-title" data-i18n="phase-t2">Ölçeklenme</div>
+          <p class="phase-desc" data-i18n="phase-d2">10+ okula genişleme ve dijital platform kurulumu. Hackathonlar okullar arası rekabetçi formata taşınır.</p>
           <div class="chips">
-            <span class="chip">10+ Okul</span>
-            <span class="chip">Dijital Platform</span>
-            <span class="chip">Okullar Arası Hackathon</span>
+            <span class="chip" data-i18n="chip-2-1">10+ Okul</span>
+            <span class="chip" data-i18n="chip-2-2">Dijital Platform</span>
+            <span class="chip" data-i18n="chip-2-3">Okullar Arası Hackathon</span>
           </div>
         </div>
       </div>
@@ -1206,14 +1258,14 @@
           <div class="phase-tag">2028</div>
         </div>
         <div class="phase-body">
-          <div class="phase-label">Yıl 3</div>
-          <div class="phase-title">Ulusal Liderlik</div>
-          <p class="phase-desc">Araştırma laboratuvarları, Ulusal Öğrenci Zirvesi ve hackathon'un ulusal platforma taşınması. Türkiye'de AI eğitiminde referans kurum.</p>
+          <div class="phase-label" data-i18n="phase-l3">Yıl 3</div>
+          <div class="phase-title" data-i18n="phase-t3">Ulusal Liderlik</div>
+          <p class="phase-desc" data-i18n="phase-d3">Araştırma laboratuvarları, Ulusal Öğrenci Zirvesi ve hackathon'un ulusal platforma taşınması. Türkiye'de AI eğitiminde referans kurum.</p>
           <div class="chips">
-            <span class="chip">Araştırma Lab</span>
-            <span class="chip">Ulusal Zirve</span>
-            <span class="chip">Ulusal Hackathon</span>
-            <span class="chip">Uluslararası Açılım</span>
+            <span class="chip" data-i18n="chip-3-1">Araştırma Lab</span>
+            <span class="chip" data-i18n="chip-3-2">Ulusal Zirve</span>
+            <span class="chip" data-i18n="chip-3-3">Ulusal Hackathon</span>
+            <span class="chip" data-i18n="chip-3-4">Uluslararası Açılım</span>
           </div>
         </div>
       </div>
@@ -1223,55 +1275,55 @@
 
 <!-- AUDIENCE -->
 <section id="audience">
-  <div class="section-tag light fade-up">Hedef Kitle ve Neden Biz</div>
-  <h2 class="section-h2 fade-up d1" style="color:var(--white)">
+  <div class="section-tag light fade-up" data-i18n="aud-tag">Hedef Kitle ve Neden Biz</div>
+  <h2 class="section-h2 fade-up d1" style="color:var(--white)" data-i18n="aud-h2">
     Uluslararası hedefleri olan<br><strong>okullar.</strong>
   </h2>
 
   <div class="audience-inner">
     <div class="target-card fade-up">
-      <div class="target-badge">Hedef Kurum Profili</div>
-      <div class="target-title">Modern, Uluslararası Vizyonlu Okullar</div>
-      <p class="target-body">Öğrencilerini küresel rekabete hazırlamayı hedefleyen, akademik yeniliğe açık ve kaliteli eğitime yatırım yapan kurumlar.</p>
+      <div class="target-badge" data-i18n="aud-badge">Hedef Kurum Profili</div>
+      <div class="target-title" data-i18n="aud-title">Modern, Uluslararası Vizyonlu Okullar</div>
+      <p class="target-body" data-i18n="aud-body">Öğrencilerini küresel rekabete hazırlamayı hedefleyen, akademik yeniliğe açık ve kaliteli eğitime yatırım yapan kurumlar.</p>
       <div class="target-list">
-        <div class="target-list-item">IB, AP veya uluslararası müfredat uygulayan okullar</div>
-        <div class="target-list-item">Araştırma ve proje kültürünü benimseyen kurumlar</div>
-        <div class="target-list-item">Öğrencilerini uluslararası üniversitelere hazırlayan programlar</div>
-        <div class="target-list-item">STEM ve teknoloji alanında öncü olmak isteyen okullar</div>
-        <div class="target-list-item">Kurumsal dönüşüme stratejik yatırım yapan yönetimler</div>
+        <div class="target-list-item" data-i18n="aud-li1">IB, AP veya uluslararası müfredat uygulayan okullar</div>
+        <div class="target-list-item" data-i18n="aud-li2">Araştırma ve proje kültürünü benimseyen kurumlar</div>
+        <div class="target-list-item" data-i18n="aud-li3">Öğrencilerini uluslararası üniversitelere hazırlayan programlar</div>
+        <div class="target-list-item" data-i18n="aud-li4">STEM ve teknoloji alanında öncü olmak isteyen okullar</div>
+        <div class="target-list-item" data-i18n="aud-li5">Kurumsal dönüşüme stratejik yatırım yapan yönetimler</div>
       </div>
     </div>
 
     <div class="why-list fade-up d1">
       <div style="margin-bottom:32px">
-        <div class="section-tag light" style="margin-bottom:16px">Rekabet Avantajımız</div>
+        <div class="section-tag light" style="margin-bottom:16px" data-i18n="aud-adv-tag">Rekabet Avantajımız</div>
       </div>
       <div class="why-item">
         <div class="why-num">01</div>
         <div>
-          <div class="why-title">Proje Temelli Sistem</div>
-          <p class="why-body">Piyasadaki alternatiflerin büyük çoğunluğu içerik aktarımına odaklanır. Biz her ders birimini somut bir proje çıktısına bağlayan sistematik bir model kuruyoruz.</p>
+          <div class="why-title" data-i18n="aud-wt1">Proje Temelli Sistem</div>
+          <p class="why-body" data-i18n="aud-wb1">Piyasadaki alternatiflerin büyük çoğunluğu içerik aktarımına odaklanır. Biz her ders birimini somut bir proje çıktısına bağlayan sistematik bir model kuruyoruz.</p>
         </div>
       </div>
       <div class="why-item">
         <div class="why-num">02</div>
         <div>
-          <div class="why-title">Dönemlik Hackathon Formatı</div>
-          <p class="why-body">Hackathon, öğrenmeyi ölçülebilir ve rekabetçi hale getirir. Öğrenci portföyüne ve kurumun akademik prestijine doğrudan katkı sağlar.</p>
+          <div class="why-title" data-i18n="aud-wt2">Dönemlik Hackathon Formatı</div>
+          <p class="why-body" data-i18n="aud-wb2">Hackathon, öğrenmeyi ölçülebilir ve rekabetçi hale getirir. Öğrenci portföyüne ve kurumun akademik prestijine doğrudan katkı sağlar.</p>
         </div>
       </div>
       <div class="why-item">
         <div class="why-num">03</div>
         <div>
-          <div class="why-title">Akademik Danışma Kurulu</div>
-          <p class="why-body">Bağımsız akademisyenlerden oluşan kurulun sağladığı içerik güvencesi, IB/AP standartlarına uyum ve uluslararası akademik çıpa.</p>
+          <div class="why-title" data-i18n="aud-wt3">Akademik Danışma Kurulu</div>
+          <p class="why-body" data-i18n="aud-wb3">Bağımsız akademisyenlerden oluşan kurulun sağladığı içerik güvencesi, IB/AP standartlarına uyum ve uluslararası akademik çıpa.</p>
         </div>
       </div>
       <div class="why-item">
         <div class="why-num">04</div>
         <div>
-          <div class="why-title">Öğretmen Merkezli Kalıcılık</div>
-          <p class="why-body">Program bitmez; öğretmen sahiplenir. Mentorlu öğretmen ağı kurumsal dönüşümün uzun vadeli güvencesidir.</p>
+          <div class="why-title" data-i18n="aud-wt4">Öğretmen Merkezli Kalıcılık</div>
+          <p class="why-body" data-i18n="aud-wb4">Program bitmez; öğretmen sahiplenir. Mentorlu öğretmen ağı kurumsal dönüşümün uzun vadeli güvencesidir.</p>
         </div>
       </div>
     </div>
@@ -1280,12 +1332,12 @@
 
 <!-- CURRICULUM -->
 <section id="curriculum">
-  <div class="section-tag fade-up">Müfredat Mimarisi</div>
-  <h2 class="section-h2 fade-up d1">
+  <div class="section-tag fade-up" data-i18n="curr-tag">Müfredat Mimarisi</div>
+  <h2 class="section-h2 fade-up d1" data-i18n="curr-h2">
     İki model,<br><strong>esnek uygulama.</strong>
   </h2>
-  <p class="section-lead fade-up d2">
-    Okullar ihtiyaçlarına göre modellerden birini veya ikisini birlikte tercih edebilir. Her iki model de ortaokul ve lise seviyesinde uygulanır.
+  <p class="section-lead fade-up d2" data-i18n="curr-lead">
+    Okullar ihtiyaçlarına göre modellerden birini veya ikisini birlikte tercih edebilir. Her iki model de ortaokul ve lise seviyesinde uygulanır. Eğitimler okulun tercihine göre Türkçe veya İngilizce olarak verilebilir.
   </p>
 
   <div class="curr-grid" style="grid-template-columns: repeat(2, 1fr);">
@@ -1295,98 +1347,98 @@
         <span class="curr-status-text">Model A</span>
       </div>
       <div class="curr-title">AI Hub — Extracurricular</div>
-      <div class="curr-level">Okul içinde derslerden bağımsız bir AI kulübü/hub'ı oluşturulur. Öğrenciler proje temelli ve hackathon destekli AI + Veri Bilimi eğitimi alır.</div>
+      <div class="curr-level" data-i18n="curr-ma-desc">Okul içinde derslerden bağımsız bir AI kulübü/hub'ı oluşturulur. Öğrenciler proje temelli ve hackathon destekli AI + Veri Bilimi eğitimi alır.</div>
     </div>
     <div class="curr-card fade-up d1">
       <div class="curr-status status-active">
         <div class="curr-dot"></div>
         <span class="curr-status-text">Model B</span>
       </div>
-      <div class="curr-title">Ders Entegrasyonu</div>
-      <div class="curr-level">AI ve veri analizi, mevcut bilişim/yazılım, matematik ve doğa bilimleri (fizik, kimya, biyoloji) derslerine entegre edilir. Öğrenciler kendi ders içeriklerini veri ve yapay zekâ ile güçlendirir.</div>
+      <div class="curr-title" data-i18n="curr-mb-title">Ders Entegrasyonu</div>
+      <div class="curr-level" data-i18n="curr-mb-desc">AI ve veri analizi, mevcut bilişim/yazılım, matematik ve doğa bilimleri (fizik, kimya, biyoloji) derslerine entegre edilir. Öğrenciler kendi ders içeriklerini veri ve yapay zekâ ile güçlendirir.</div>
     </div>
   </div>
 
   <!-- Curriculum Content -->
   <div class="curr-content">
-    <div class="curr-content-title fade-up">Ne öğrenilir?</div>
-    <p class="curr-content-lead fade-up d1">Temel kavramlardan ileri uygulamalara uzanan, her adımı pratiğe dayanan 10 modüllük bir yolculuk. Her modül teori, canlı demo ve ödev üçlüsüyle işlenir.</p>
+    <div class="curr-content-title fade-up" data-i18n="curr-ct">Ne öğrenilir?</div>
+    <p class="curr-content-lead fade-up d1" data-i18n="curr-cl">Temel kavramlardan ileri uygulamalara uzanan, her adımı pratiğe dayanan 10 modüllük bir yolculuk. Her modül teori, canlı demo ve ödev üçlüsüyle işlenir.</p>
 
     <div class="curr-topics">
       <div class="curr-topic fade-up">
         <div class="curr-topic-num">01</div>
-        <div class="curr-topic-name">AI Temelleri & Ekosistem</div>
-        <div class="curr-topic-desc">ML iş akışı, model eğitimi, değerlendirme metrikleri</div>
+        <div class="curr-topic-name" data-i18n="curr-tn1">AI Temelleri & Ekosistem</div>
+        <div class="curr-topic-desc" data-i18n="curr-td1">ML iş akışı, model eğitimi, değerlendirme metrikleri</div>
       </div>
       <div class="curr-topic fade-up">
         <div class="curr-topic-num">02</div>
-        <div class="curr-topic-name">Doğal Dil İşleme</div>
-        <div class="curr-topic-desc">Tokenizasyon, kelime gömmeleri, Word2Vec</div>
+        <div class="curr-topic-name" data-i18n="curr-tn2">Doğal Dil İşleme</div>
+        <div class="curr-topic-desc" data-i18n="curr-td2">Tokenizasyon, kelime gömmeleri, Word2Vec</div>
       </div>
       <div class="curr-topic fade-up">
         <div class="curr-topic-num">03</div>
-        <div class="curr-topic-name">Transformer & LLM</div>
-        <div class="curr-topic-desc">Dikkat mekanizması, encoder/decoder, fine-tuning</div>
+        <div class="curr-topic-name" data-i18n="curr-tn3">Transformer & LLM</div>
+        <div class="curr-topic-desc" data-i18n="curr-td3">Dikkat mekanizması, encoder/decoder, fine-tuning</div>
       </div>
       <div class="curr-topic fade-up">
         <div class="curr-topic-num">04</div>
-        <div class="curr-topic-name">Prompt Mühendisliği</div>
-        <div class="curr-topic-desc">CoT, few-shot, güvenlik, yapılandırılmış çıktılar</div>
+        <div class="curr-topic-name" data-i18n="curr-tn4">Prompt Mühendisliği</div>
+        <div class="curr-topic-desc" data-i18n="curr-td4">CoT, few-shot, güvenlik, yapılandırılmış çıktılar</div>
       </div>
       <div class="curr-topic fade-up">
         <div class="curr-topic-num">05</div>
-        <div class="curr-topic-name">Agent Sistemleri</div>
-        <div class="curr-topic-desc">ReAct döngüsü, araç kullanımı, çok-ajanlı sistemler</div>
+        <div class="curr-topic-name" data-i18n="curr-tn5">Agent Sistemleri</div>
+        <div class="curr-topic-desc" data-i18n="curr-td5">ReAct döngüsü, araç kullanımı, çok-ajanlı sistemler</div>
       </div>
       <div class="curr-topic fade-up">
         <div class="curr-topic-num">06</div>
-        <div class="curr-topic-name">RAG</div>
-        <div class="curr-topic-desc">Embedding, vektör veritabanları, bilgi erişimi</div>
+        <div class="curr-topic-name" data-i18n="curr-tn6">RAG</div>
+        <div class="curr-topic-desc" data-i18n="curr-td6">Embedding, vektör veritabanları, bilgi erişimi</div>
       </div>
       <div class="curr-topic fade-up">
         <div class="curr-topic-num">07</div>
-        <div class="curr-topic-name">Bilgisayarla Görme</div>
-        <div class="curr-topic-desc">CNN mimarisi, nesne algılama, veri artırma</div>
+        <div class="curr-topic-name" data-i18n="curr-tn7">Bilgisayarla Görme</div>
+        <div class="curr-topic-desc" data-i18n="curr-td7">CNN mimarisi, nesne algılama, veri artırma</div>
       </div>
       <div class="curr-topic fade-up">
         <div class="curr-topic-num">08</div>
-        <div class="curr-topic-name">Multimodal Üretim</div>
-        <div class="curr-topic-desc">Diffusion modeller, ses sentezi, video üretimi</div>
+        <div class="curr-topic-name" data-i18n="curr-tn8">Multimodal Üretim</div>
+        <div class="curr-topic-desc" data-i18n="curr-td8">Diffusion modeller, ses sentezi, video üretimi</div>
       </div>
       <div class="curr-topic fade-up">
         <div class="curr-topic-num">09</div>
-        <div class="curr-topic-name">AI ile Yazılım Geliştirme</div>
-        <div class="curr-topic-desc">Git, Cursor, Lovable, AI destekli kodlama</div>
+        <div class="curr-topic-name" data-i18n="curr-tn9">AI ile Yazılım Geliştirme</div>
+        <div class="curr-topic-desc" data-i18n="curr-td9">Git, Cursor, Lovable, AI destekli kodlama</div>
       </div>
       <div class="curr-topic fade-up">
         <div class="curr-topic-num">10</div>
-        <div class="curr-topic-name">İş Akışı Otomasyonu</div>
-        <div class="curr-topic-desc">Vertex AI, kurumsal agent'lar, uçtan uca entegrasyon</div>
+        <div class="curr-topic-name" data-i18n="curr-tn10">İş Akışı Otomasyonu</div>
+        <div class="curr-topic-desc" data-i18n="curr-td10">Vertex AI, kurumsal agent'lar, uçtan uca entegrasyon</div>
       </div>
     </div>
 
     <div class="curr-bottom">
       <div class="curr-bottom-block fade-up">
-        <div class="curr-bottom-tag">Bireysel Projeler</div>
-        <div class="curr-bottom-title">Her öğrenci kendi AI projesini geliştirir.</div>
-        <p class="curr-bottom-body">Dönem boyunca haftalık mentorluk eşliğinde fikir aşamasından çalışan ürüne kadar ilerleyen bireysel projeler. Öğrenciler gerçek araçlarla gerçek sorunlara çözüm üretir ve bir yazılım portföyü oluşturur.</p>
+        <div class="curr-bottom-tag" data-i18n="curr-bt1">Bireysel Projeler</div>
+        <div class="curr-bottom-title" data-i18n="curr-btt1">Her öğrenci kendi AI projesini geliştirir.</div>
+        <p class="curr-bottom-body" data-i18n="curr-bb1">Dönem boyunca haftalık mentorluk eşliğinde fikir aşamasından çalışan ürüne kadar ilerleyen bireysel projeler. Öğrenciler gerçek araçlarla gerçek sorunlara çözüm üretir ve bir yazılım portföyü oluşturur.</p>
         <div class="curr-examples">
-          <span class="curr-example">Portfolyo + AI Chatbot</span>
-          <span class="curr-example">Akıllı Ders Asistanı</span>
-          <span class="curr-example">İçerik Üretim Paneli</span>
-          <span class="curr-example">Mekan Öneri Uygulaması</span>
-          <span class="curr-example">Alışkanlık Takipçisi</span>
+          <span class="curr-example" data-i18n="curr-ex1">Portfolyo + AI Chatbot</span>
+          <span class="curr-example" data-i18n="curr-ex2">Akıllı Ders Asistanı</span>
+          <span class="curr-example" data-i18n="curr-ex3">İçerik Üretim Paneli</span>
+          <span class="curr-example" data-i18n="curr-ex4">Mekan Öneri Uygulaması</span>
+          <span class="curr-example" data-i18n="curr-ex5">Alışkanlık Takipçisi</span>
         </div>
       </div>
       <div class="curr-bottom-block fade-up d1">
-        <div class="curr-bottom-tag">Hackathon & Final Sunumu</div>
-        <div class="curr-bottom-title">Dönem sonu: sahneye çıkma zamanı.</div>
-        <p class="curr-bottom-body">Her dönem, öğrenciler projelerini jüri ve akranları önünde sunar. Canlı demo, teknik soru-cevap ve akran değerlendirmesiyle yetkinlikler somut biçimde kanıtlanır. En iyi projeler okul genelinde sergilenir.</p>
+        <div class="curr-bottom-tag" data-i18n="curr-bt2">Hackathon & Final Sunumu</div>
+        <div class="curr-bottom-title" data-i18n="curr-btt2">Dönem sonu: sahneye çıkma zamanı.</div>
+        <p class="curr-bottom-body" data-i18n="curr-bb2">Her dönem, öğrenciler projelerini jüri ve akranları önünde sunar. Canlı demo, teknik soru-cevap ve akran değerlendirmesiyle yetkinlikler somut biçimde kanıtlanır. En iyi projeler okul genelinde sergilenir.</p>
         <div class="curr-examples">
-          <span class="curr-example">10 dk Sunum</span>
-          <span class="curr-example">Canlı Demo</span>
-          <span class="curr-example">Akran Değerlendirmesi</span>
-          <span class="curr-example">Jüri Geri Bildirimi</span>
+          <span class="curr-example" data-i18n="curr-ex6">10 dk Sunum</span>
+          <span class="curr-example" data-i18n="curr-ex7">Canlı Demo</span>
+          <span class="curr-example" data-i18n="curr-ex8">Akran Değerlendirmesi</span>
+          <span class="curr-example" data-i18n="curr-ex9">Jüri Geri Bildirimi</span>
         </div>
       </div>
     </div>
@@ -1396,26 +1448,26 @@
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-left">
-    <div class="section-tag light fade-up">İletişim</div>
-    <h2 class="section-h2 fade-up d1" style="color:var(--white)">
+    <div class="section-tag light fade-up" data-i18n="contact-tag">İletişim</div>
+    <h2 class="section-h2 fade-up d1" style="color:var(--white)" data-i18n="contact-h2">
       Dönüşüm bir<br><strong>görüşmeyle başlar.</strong>
     </h2>
-    <p class="section-lead fade-up d2" style="color:rgba(255,255,255,0.4)">
+    <p class="section-lead fade-up d2" style="color:rgba(255,255,255,0.4)" data-i18n="contact-lead">
       Pilot okul başvurularını değerlendiriyoruz. Kurumunuza özel ön analiz görüşmesi için bilgilerinizi bırakın.
     </p>
     <div class="contact-info fade-up d3">
       <div class="contact-info-item">
         <div class="contact-info-icon">✉</div>
         <div>
-          <div class="contact-info-label">E-Posta</div>
+          <div class="contact-info-label" data-i18n="contact-email-label">E-Posta</div>
           <div class="contact-info-value">info@k12ailab.com</div>
         </div>
       </div>
       <div class="contact-info-item">
         <div class="contact-info-icon">📍</div>
         <div>
-          <div class="contact-info-label">Konum</div>
-          <div class="contact-info-value">İstanbul, Türkiye</div>
+          <div class="contact-info-label" data-i18n="contact-loc-label">Konum</div>
+          <div class="contact-info-value" data-i18n="contact-loc-value">İstanbul, Türkiye</div>
         </div>
       </div>
     </div>
@@ -1425,42 +1477,42 @@
     <div id="contactForm">
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Ad Soyad</label>
+          <label class="form-label" data-i18n="form-name">Ad Soyad</label>
           <input type="text" class="form-input" placeholder="Dr. Ayşe Kaya" />
         </div>
         <div class="form-group">
-          <label class="form-label">Unvan</label>
+          <label class="form-label" data-i18n="form-title">Unvan</label>
           <input type="text" class="form-input" placeholder="Genel Müdür" />
         </div>
       </div>
       <div class="form-group">
-        <label class="form-label">Okul / Kurum Adı</label>
+        <label class="form-label" data-i18n="form-school">Okul / Kurum Adı</label>
         <input type="text" class="form-input" placeholder="Kurum adını yazın" />
       </div>
       <div class="form-group">
-        <label class="form-label">E-Posta</label>
+        <label class="form-label" data-i18n="form-email">E-Posta</label>
         <input type="email" class="form-input" placeholder="ad@kurum.edu.tr" />
       </div>
       <div class="form-group">
-        <label class="form-label">İlgilendiğiniz Program</label>
+        <label class="form-label" data-i18n="form-program">İlgilendiğiniz Program</label>
         <select class="form-select">
-          <option value="">Seçin</option>
-          <option>AI + Veri — Ortaokul</option>
-          <option>AI + Veri — Lise</option>
-          <option>Her İkisi</option>
-          <option>Genel Bilgi Almak İstiyorum</option>
+          <option value="" data-i18n="form-opt0">Seçin</option>
+          <option data-i18n="form-opt1">AI + Veri — Ortaokul</option>
+          <option data-i18n="form-opt2">AI + Veri — Lise</option>
+          <option data-i18n="form-opt3">Her İkisi</option>
+          <option data-i18n="form-opt4">Genel Bilgi Almak İstiyorum</option>
         </select>
       </div>
       <div class="form-group">
-        <label class="form-label">Mesajınız (İsteğe Bağlı)</label>
+        <label class="form-label" data-i18n="form-message">Mesajınız (İsteğe Bağlı)</label>
         <textarea class="form-textarea" placeholder="Kurumunuz hakkında kısaca bilgi verebilirsiniz…"></textarea>
       </div>
-      <button class="form-submit" onclick="submitForm()">Görüşme Talep Et</button>
+      <button class="form-submit" onclick="submitForm()" data-i18n="form-submit">Görüşme Talep Et</button>
     </div>
     <div class="form-success" id="formSuccess">
       <div class="form-success-icon">✓</div>
-      <div class="form-success-title">Talebiniz Alındı</div>
-      <p class="form-success-body">48 saat içinde kurumsal e-posta adresinize dönüş yapılacaktır.</p>
+      <div class="form-success-title" data-i18n="form-ok-title">Talebiniz Alındı</div>
+      <p class="form-success-body" data-i18n="form-ok-body">48 saat içinde kurumsal e-posta adresinize dönüş yapılacaktır.</p>
     </div>
   </div>
 </section>
@@ -1469,15 +1521,15 @@
 <footer>
   <div class="footer-brand">
     K12 AI Lab
-    <span>İstanbul, Türkiye</span>
+    <span data-i18n="footer-loc">İstanbul, Türkiye</span>
   </div>
   <div class="footer-links">
-    <a class="footer-link" href="#about">Yaklaşımımız</a>
-    <a class="footer-link" href="#services">Hizmetler</a>
-    <a class="footer-link" href="#hackathon">Hackathon</a>
-    <a class="footer-link" href="#growth">Süreç</a>
-    <a class="footer-link" href="#curriculum">Müfredat</a>
-    <a class="footer-link" href="#contact">İletişim</a>
+    <a class="footer-link" href="#about" data-i18n="foot-1">Yaklaşımımız</a>
+    <a class="footer-link" href="#services" data-i18n="foot-2">Hizmetler</a>
+    <a class="footer-link" href="#hackathon" data-i18n="foot-3">Hackathon</a>
+    <a class="footer-link" href="#growth" data-i18n="foot-4">Süreç</a>
+    <a class="footer-link" href="#curriculum" data-i18n="foot-5">Müfredat</a>
+    <a class="footer-link" href="#contact" data-i18n="foot-6">İletişim</a>
   </div>
   <div class="footer-copy">© 2026 K12 AI Lab</div>
 </footer>
@@ -1513,6 +1565,338 @@
       }
     });
   });
+
+  // ─── i18n ────────────────────────────────────────────────────
+  const i18n = {
+    en: {
+      'nav-sub': 'Academic Consultancy',
+      'nav-about': 'Our Approach', 'nav-services': 'Services', 'nav-hackathon': 'Hackathon',
+      'nav-process': 'Process', 'nav-curriculum': 'Curriculum', 'nav-contact': 'Contact',
+      'nav-about-m': 'Our Approach', 'nav-services-m': 'Services', 'nav-hackathon-m': 'Hackathon',
+      'nav-process-m': 'Process', 'nav-curriculum-m': 'Curriculum', 'nav-contact-m': 'Contact',
+      'nav-cta': 'Request a Meeting', 'nav-cta-m': 'Request a Meeting',
+      'hero-h1': 'Bringing <em>artificial intelligence</em>',
+      'hero-h1b': 'to your school.',
+      'hero-lead': 'We are an academic consultancy that builds AI and data education infrastructure in schools, designs curricula, and manages institutional transformation. Students create real projects and prove their competencies through semesterly hackathons.',
+      'hero-cta': 'Request a Meeting',
+      'hero-ghost': 'Learn More',
+      'stat-1': 'Service Components', 'stat-2': 'Annual Hackathons', 'stat-3': 'Program Alignment', 'stat-4': 'Year Roadmap',
+      'mq-1': 'Project-Based Learning', 'mq-2': 'Semesterly Hackathon', 'mq-3': 'AI + Data Curriculum',
+      'mq-4': 'Teacher Academy', 'mq-5': 'IB/AP Aligned Program', 'mq-6': 'Institutional Transformation',
+      'mq-7': 'K12 Education Transformation', 'mq-8': 'Impact Measurement', 'mq-9': 'Academic Consultancy',
+      'about-tag': 'Our Approach',
+      'about-h2': 'Students <em>create projects,</em><br><strong>prove their competencies.</strong>',
+      'about-body1': 'K12 AI Lab is an academic consultancy that designs AI and data education infrastructure from scratch in schools. We see the whole picture: curriculum, teachers, measurement — all designed together.',
+      'about-body2': 'At the center of our program is <strong>project-based learning</strong>. Students work on real data problems and present their products at the end of each semester. <strong>Hackathons</strong> held at the end of each semester make this learning competitive and measurable.',
+      'about-quote': '"An academic consultancy that builds AI and Data education infrastructure in schools and manages institutional transformation."',
+      'about-pillars-tag': 'Core Principles',
+      'pillar-t1': 'Systematic Transformation', 'pillar-t2': 'Project & Application Focused',
+      'pillar-t3': 'Teacher-Centered Capacity', 'pillar-t4': 'Academic Credibility',
+      'pillar-b1': 'Not a one-time training; a holistic institutional transformation system consisting of analysis, design, implementation, and measurement cycles. A custom roadmap for each school.',
+      'pillar-b2': 'Every unit of the curriculum is tied to a concrete project output. Students apply theoretical knowledge to real-world problems and build portfolios.',
+      'pillar-b3': 'Teachers carry the program. Through mentorship and continuous development, teachers become the true agents of transformation.',
+      'pillar-b4': 'IB/AP aligned curriculum framework, academic advisory board support, and annual impact reports prove the program\'s value with concrete data.',
+      'why-tag': 'Why We\'re Different',
+      'why-h2': 'Static curricula<br><strong>become outdated fast.</strong>',
+      'why-body1': 'AI makes a new leap every month. Traditional curricula cannot keep up — they become obsolete the day they\'re printed. Both the education program and the skills of teachers who deliver it must be continuously updated.',
+      'why-body2': 'That\'s why our team combines both <strong style="color:var(--white);">technical AI expertise</strong> and <strong style="color:var(--white);">pedagogical competency</strong>. We keep the curriculum current, continuously support teachers, and ensure the program evolves in parallel with developments in the field.',
+      'why-quote': '"A static curriculum in AI prepares students for yesterday\'s world. We aim for tomorrow\'s."',
+      'why-pt1': 'Living Curriculum', 'why-pt2': 'Continuous Teacher Development',
+      'why-pt3': 'Mandatory Projects & Application', 'why-pt4': 'Technical + Pedagogical Expertise',
+      'why-pb1': 'Content is not fixed. It is regularly updated according to developments in the field. Students work with current tools and methods.',
+      'why-pb2': 'Teachers receive mentorship and training support not just at the beginning, but throughout the program. We adapt together to innovations in the field.',
+      'why-pb3': 'The nature of AI cannot be grasped through theoretical lectures alone. Students work with real datasets, build models, and produce tangible outputs. Learning only happens by doing.',
+      'why-pb4': 'Our team has technical depth in AI and pedagogical design competency in education. The intersection of these two disciplines forms the foundation of our program.',
+      'svc-tag': 'Service Package',
+      'svc-h2': 'Six components,<br><strong>one transformation system.</strong>',
+      'svc-desc': 'Each component complements the others. Teacher training without curriculum, or workshops without measurement, are meaningless. We design the whole together.',
+      'svc-t1': 'Institutional Analysis', 'svc-t2': 'Curriculum Design', 'svc-t3': 'Teacher Academy',
+      'svc-t4': 'Student Project Workshops', 'svc-t5': 'Semesterly Hackathon', 'svc-t6': 'Impact Measurement',
+      'svc-b1': 'We assess the school\'s existing infrastructure, teacher competencies, and technological readiness; together we build an institution-specific transformation roadmap.',
+      'svc-b2': 'We design project-based AI + Data programs, lesson plans, project frameworks, and IB/AP aligned assessment rubrics for middle and high school.',
+      'svc-b3': 'An intensive onboarding training and monthly mentorship process that makes teachers the true owners of the program.',
+      'svc-b4': 'Hands-on workshops from data analysis, modeling, and project development to presentation preparation. Every lesson unit is tied to a concrete project output.',
+      'svc-b5': 'Each semester\'s hackathon lets students prove their competencies in a competitive environment. Academic jury evaluates, best projects are awarded.',
+      'svc-b6': 'An annual impact report covering student outputs, teacher development, and institutional progress indicators proves the program\'s value with concrete data.',
+      'svctag-1-1': 'Infrastructure', 'svctag-1-2': 'Competency', 'svctag-1-3': 'Roadmap',
+      'svctag-2-1': 'IB/AP Aligned', 'svctag-2-2': 'Project-Based', 'svctag-2-3': 'Research',
+      'svctag-3-1': 'Training', 'svctag-3-2': 'Mentorship', 'svctag-3-3': 'Continuous Growth',
+      'svctag-4-1': 'Hands-on', 'svctag-4-2': 'Data Analysis', 'svctag-4-3': 'Modeling',
+      'svctag-5-1': 'Competitive', 'svctag-5-2': 'Jury-Evaluated', 'svctag-5-3': 'Awarded',
+      'svctag-6-1': 'Data-Driven', 'svctag-6-2': 'Transparency', 'svctag-6-3': 'ROI',
+      'hack-tag': 'Semesterly Hackathon',
+      'hack-h2': 'Learning isn\'t enough.<br>You need to prove it.',
+      'hack-body1': 'At the end of each semester, all students solve a real problem in a 24\u201348 hour hackathon format. This is not just an exam; it\'s a platform that simultaneously demonstrates the student\'s thinking, teamwork, and technical competency.',
+      'hack-body2': 'Hackathon results go into the annual impact report, are added to student portfolios, and become tangible outputs that strengthen the institution\'s academic prestige.',
+      'hack-ct1': 'Real Problem, Real Solution', 'hack-ct2': 'Team Dynamics & Leadership',
+      'hack-ct3': 'Academic Jury & Awards', 'hack-ct4': 'Portfolio & Academic Documentation',
+      'hack-cb1': 'Students work with real datasets and real-world problems, not simulated ones. The result is an applicable product or analysis.',
+      'hack-cb2': 'Cross-disciplinary teams are formed. Communication, planning, and leadership skills are evaluated alongside technical competency.',
+      'hack-cb3': 'A jury of academics and industry professionals evaluates. Best projects are awarded and showcased at the national summit.',
+      'hack-cb4': 'Each student\'s hackathon output is documented and added to their personal portfolio. It serves as strong academic evidence for university applications.',
+      'growth-tag': 'Growth Strategy',
+      'growth-h2': 'Prove it,<br>then<br><strong>scale.</strong>',
+      'growth-lead': 'We follow a systematic growth model. Each phase builds on the outputs of the previous one.',
+      'growth-ns-label': '\u2605 Our Growth Philosophy',
+      'growth-ns-text': 'First <strong>build the right model</strong>, then <strong>scale it</strong>. A data-driven, sustainable growth strategy that feeds on the experiences of each previous year.',
+      'phase-l1': 'Year 1', 'phase-l2': 'Year 2', 'phase-l3': 'Year 3',
+      'phase-t1': 'Model Validation', 'phase-t2': 'Scaling', 'phase-t3': 'National Leadership',
+      'phase-d1': 'Deep implementation in 2\u20133 pilot schools. Curriculum maturation, hackathon format testing, and reference generation. A year to make an impact, not to grow.',
+      'phase-d2': 'Expansion to 10+ schools and digital platform setup. Hackathons transition to inter-school competitive format.',
+      'phase-d3': 'Research labs, National Student Summit, and hackathon scaling to national platform. The reference institution for AI education in Turkey.',
+      'chip-1-1': '2\u20133 Pilot Schools', 'chip-1-2': 'First Hackathon', 'chip-1-3': 'Curriculum Maturation', 'chip-1-4': 'Reference Generation',
+      'chip-2-1': '10+ Schools', 'chip-2-2': 'Digital Platform', 'chip-2-3': 'Inter-School Hackathon',
+      'chip-3-1': 'Research Lab', 'chip-3-2': 'National Summit', 'chip-3-3': 'National Hackathon', 'chip-3-4': 'International Expansion',
+      'aud-tag': 'Target Audience & Why Us',
+      'aud-h2': 'Schools with<br><strong>international ambitions.</strong>',
+      'aud-badge': 'Target Institution Profile',
+      'aud-title': 'Modern, Internationally-Minded Schools',
+      'aud-body': 'Institutions that aim to prepare their students for global competition, are open to academic innovation, and invest in quality education.',
+      'aud-li1': 'Schools implementing IB, AP, or international curricula',
+      'aud-li2': 'Institutions that embrace research and project culture',
+      'aud-li3': 'Programs preparing students for international universities',
+      'aud-li4': 'Schools aspiring to lead in STEM and technology',
+      'aud-li5': 'Administrations making strategic investments in institutional transformation',
+      'aud-adv-tag': 'Competitive Advantage',
+      'aud-wt1': 'Project-Based System', 'aud-wt2': 'Semesterly Hackathon Format',
+      'aud-wt3': 'Academic Advisory Board', 'aud-wt4': 'Teacher-Centered Sustainability',
+      'aud-wb1': 'Most alternatives in the market focus on content delivery. We build a systematic model that ties every lesson unit to a concrete project output.',
+      'aud-wb2': 'Hackathons make learning measurable and competitive. They directly contribute to student portfolios and the institution\'s academic prestige.',
+      'aud-wb3': 'Content assurance provided by an independent board of academics, IB/AP standards alignment, and international academic anchoring.',
+      'aud-wb4': 'The program doesn\'t end; teachers take ownership. The mentored teacher network is the long-term guarantee of institutional transformation.',
+      'curr-tag': 'Curriculum Architecture',
+      'curr-h2': 'Two models,<br><strong>flexible implementation.</strong>',
+      'curr-lead': 'Schools can choose one or both models based on their needs. Both models are available for middle and high school levels. All training sessions can be delivered in Turkish or English, based on the school\'s preference.',
+      'curr-ma-desc': 'An independent AI club/hub is established within the school, separate from regular classes. Students receive project-based and hackathon-supported AI + Data Science training.',
+      'curr-mb-title': 'Course Integration',
+      'curr-mb-desc': 'AI and data analysis are integrated into existing IT/programming, mathematics, and natural sciences (physics, chemistry, biology) courses. Students enhance their own course content with data and AI.',
+      'curr-ct': 'What is learned?',
+      'curr-cl': 'A 10-module journey from fundamental concepts to advanced applications, with every step grounded in practice. Each module is delivered through a trio of theory, live demo, and homework.',
+      'curr-tn1': 'AI Fundamentals & Ecosystem', 'curr-tn2': 'Natural Language Processing',
+      'curr-tn3': 'Transformer & LLM', 'curr-tn4': 'Prompt Engineering',
+      'curr-tn5': 'Agent Systems', 'curr-tn6': 'RAG',
+      'curr-tn7': 'Computer Vision', 'curr-tn8': 'Multimodal Generation',
+      'curr-tn9': 'AI-Powered Software Development', 'curr-tn10': 'Workflow Automation',
+      'curr-td1': 'ML workflow, model training, evaluation metrics',
+      'curr-td2': 'Tokenization, word embeddings, Word2Vec',
+      'curr-td3': 'Attention mechanism, encoder/decoder, fine-tuning',
+      'curr-td4': 'CoT, few-shot, safety, structured outputs',
+      'curr-td5': 'ReAct loop, tool use, multi-agent systems',
+      'curr-td6': 'Embedding, vector databases, information retrieval',
+      'curr-td7': 'CNN architecture, object detection, data augmentation',
+      'curr-td8': 'Diffusion models, speech synthesis, video generation',
+      'curr-td9': 'Git, Cursor, Lovable, AI-assisted coding',
+      'curr-td10': 'Vertex AI, enterprise agents, end-to-end integration',
+      'curr-bt1': 'Individual Projects', 'curr-bt2': 'Hackathon & Final Presentation',
+      'curr-btt1': 'Each student develops their own AI project.',
+      'curr-btt2': 'End of semester: time to take the stage.',
+      'curr-bb1': 'Individual projects that progress from ideation to working product with weekly mentorship throughout the semester. Students solve real problems with real tools and build a software portfolio.',
+      'curr-bb2': 'Each semester, students present their projects to a jury and peers. Competencies are concretely demonstrated through live demos, technical Q&A, and peer evaluation. Best projects are showcased school-wide.',
+      'curr-ex1': 'Portfolio + AI Chatbot', 'curr-ex2': 'Smart Lesson Assistant',
+      'curr-ex3': 'Content Creation Panel', 'curr-ex4': 'Place Recommendation App',
+      'curr-ex5': 'Habit Tracker',
+      'curr-ex6': '10 min Presentation', 'curr-ex7': 'Live Demo',
+      'curr-ex8': 'Peer Evaluation', 'curr-ex9': 'Jury Feedback',
+      'contact-tag': 'Contact',
+      'contact-h2': 'Transformation starts<br><strong>with a conversation.</strong>',
+      'contact-lead': 'We are evaluating pilot school applications. Leave your information for a preliminary analysis meeting tailored to your institution.',
+      'contact-email-label': 'Email', 'contact-loc-label': 'Location',
+      'contact-loc-value': 'Istanbul, Turkey',
+      'form-name': 'Full Name', 'form-title': 'Title', 'form-school': 'School / Institution Name',
+      'form-email': 'Email', 'form-program': 'Program of Interest', 'form-message': 'Your Message (Optional)',
+      'form-opt0': 'Select', 'form-opt1': 'AI + Data \u2014 Middle School', 'form-opt2': 'AI + Data \u2014 High School',
+      'form-opt3': 'Both', 'form-opt4': 'I Want General Information',
+      'form-submit': 'Request a Meeting',
+      'form-ok-title': 'Request Received',
+      'form-ok-body': 'We will respond to your institutional email address within 48 hours.',
+      'footer-loc': 'Istanbul, Turkey',
+      'foot-1': 'Our Approach', 'foot-2': 'Services', 'foot-3': 'Hackathon',
+      'foot-4': 'Process', 'foot-5': 'Curriculum', 'foot-6': 'Contact'
+    },
+    tr: {
+      'nav-sub': 'Akademik Dan\u0131\u015Fmanl\u0131k',
+      'nav-about': 'Yakla\u015F\u0131m\u0131m\u0131z', 'nav-services': 'Hizmetler', 'nav-hackathon': 'Hackathon',
+      'nav-process': 'S\u00FCrec\u0327', 'nav-curriculum': 'M\u00FCfredat', 'nav-contact': '\u0130leti\u015Fim',
+      'nav-about-m': 'Yakla\u015F\u0131m\u0131m\u0131z', 'nav-services-m': 'Hizmetler', 'nav-hackathon-m': 'Hackathon',
+      'nav-process-m': 'S\u00FCrec\u0327', 'nav-curriculum-m': 'M\u00FCfredat', 'nav-contact-m': '\u0130leti\u015Fim',
+      'nav-cta': 'G\u00F6r\u00FC\u015Fme Talep Et', 'nav-cta-m': 'G\u00F6r\u00FC\u015Fme Talep Et',
+      'hero-h1': 'Okulunuzu <em>yapay zek\u00E2</em>',
+      'hero-h1b': '\u00E7a\u011F\u0131na ta\u015F\u0131yoruz.',
+      'hero-lead': 'Okullarda AI ve veri e\u011Fitimi altyap\u0131s\u0131 kuran, m\u00FCfredat tasarlayan ve kurumsal d\u00F6n\u00FC\u015F\u00FCm\u00FC y\u00F6neten akademik dan\u0131\u015Fmanl\u0131k \u015Firketiyiz. \u00D6\u011Frenciler ger\u00E7ek projeler \u00FCretir, d\u00F6nemlik hackathonlarla yetkinliklerini kan\u0131tlar.',
+      'hero-cta': 'G\u00F6r\u00FC\u015Fme Talep Et',
+      'hero-ghost': 'Daha Fazla Bilgi',
+      'stat-1': 'Hizmet Bile\u015Feni', 'stat-2': 'Y\u0131ll\u0131k Hackathon', 'stat-3': 'Program Uyumu', 'stat-4': 'Y\u0131ll\u0131k Yol Haritas\u0131',
+      'mq-1': 'Proje Temelli \u00D6\u011Frenme', 'mq-2': 'D\u00F6nemlik Hackathon', 'mq-3': 'AI + Veri M\u00FCfredat\u0131',
+      'mq-4': '\u00D6\u011Fretmen Akademisi', 'mq-5': 'IB/AP Uyumlu Program', 'mq-6': 'Kurumsal D\u00F6n\u00FC\u015F\u00FCm',
+      'mq-7': 'K12 E\u011Fitim D\u00F6n\u00FC\u015F\u00FCm\u00FC', 'mq-8': 'Etki \u00D6l\u00E7\u00FCm\u00FC', 'mq-9': 'Akademik Dan\u0131\u015Fmanl\u0131k',
+      'about-tag': 'Yakla\u015F\u0131m\u0131m\u0131z',
+      'about-h2': '\u00D6\u011Frenciler <em>proje \u00FCretir,</em><br><strong>yetkinliklerini kan\u0131tlar.</strong>',
+      'about-body1': 'K12 AI Lab, okullarda yapay zek\u00E2 ve veri e\u011Fitimi altyap\u0131s\u0131n\u0131 ba\u015Ftan tasarlayan akademik dan\u0131\u015Fmanl\u0131k \u015Firketidir. B\u00FCt\u00FCn\u00FC g\u00F6r\u00FCr\u00FCz: m\u00FCfredat, \u00F6\u011Fretmen, \u00F6l\u00E7\u00FCm \u2014 hepsi birlikte kurgulan\u0131r.',
+      'about-body2': 'Program\u0131n merkezinde <strong>proje temelli \u00F6\u011Frenme</strong> yer al\u0131r. \u00D6\u011Frenciler ger\u00E7ek veri problemleri \u00FCzerinde \u00E7al\u0131\u015F\u0131r, d\u00F6nem sonunda \u00FCr\u00FCnlerini sunar. Her d\u00F6nem sonu yap\u0131lan <strong>hackathonlar</strong>, bu \u00F6\u011Frenmeyi rekabet\u00E7i ve \u00F6l\u00E7\u00FClebilir hale getirir.',
+      'about-quote': '"\u201COkullarda Yapay Zek\u00E2 ve Veri e\u011Fitimi altyap\u0131s\u0131n\u0131 kuran ve kurumsal d\u00F6n\u00FC\u015F\u00FCm\u00FC y\u00F6neten akademik dan\u0131\u015Fmanl\u0131k \u015Firketi.\u201D',
+      'about-pillars-tag': 'Temel \u0130lkelerimiz',
+      'pillar-t1': 'Sistematik D\u00F6n\u00FC\u015F\u00FCm', 'pillar-t2': 'Proje ve Uygulama Odakl\u0131',
+      'pillar-t3': '\u00D6\u011Fretmen Merkezli Kapasite', 'pillar-t4': 'Akademik G\u00FCvenilirlik',
+      'pillar-b1': 'Tek seferlik e\u011Fitim de\u011Fil; analiz, tasar\u0131m, uygulama ve \u00F6l\u00E7\u00FCm d\u00F6ng\u00FCs\u00FCnden olu\u015Fan b\u00FCt\u00FCnc\u00FCl bir kurumsal d\u00F6n\u00FC\u015F\u00FCm sistemi. Her okul i\u00E7in \u00F6zel yol haritas\u0131.',
+      'pillar-b2': 'M\u00FCfredat\u0131n her birimi somut bir proje \u00E7\u0131kt\u0131s\u0131na ba\u011Fl\u0131d\u0131r. \u00D6\u011Frenciler teorik bilgiyi ger\u00E7ek d\u00FCnya problemlerine uygular ve portf\u00F6y olu\u015Fturur.',
+      'pillar-b3': 'Program\u0131 ta\u015F\u0131yan \u00F6\u011Fretmendir. Mentorluk ve s\u00FCrekli geli\u015Fim ile \u00F6\u011Fretmen d\u00F6n\u00FC\u015F\u00FCm\u00FCn as\u0131l \u00F6znesi haline gelir.',
+      'pillar-b4': 'IB/AP uyumlu m\u00FCfredat \u00E7er\u00E7evesi, akademik dan\u0131\u015Fma kurulu deste\u011Fi ve y\u0131ll\u0131k etki raporuyla program\u0131n de\u011Feri somut verilerle kan\u0131tlan\u0131r.',
+      'why-tag': 'Neden Farkl\u0131y\u0131z',
+      'why-h2': 'Statik m\u00FCfredat,<br><strong>h\u0131zla eskir.</strong>',
+      'why-body1': 'Yapay zek\u00E2 her ay yeni bir s\u0131\u00E7rama yap\u0131yor. Geleneksel m\u00FCfredatlar bu h\u0131z\u0131 yakalayamaz \u2014 bas\u0131ld\u0131\u011F\u0131 g\u00FCn g\u00FCncelli\u011Fini yitirir. E\u011Fitim program\u0131 kadar, o program\u0131 verecek \u00F6\u011Fretmenlerin bilgi ve becerileri de s\u00FCrekli g\u00FCncellenmek zorundad\u0131r.',
+      'why-body2': 'Bu y\u00FCzden ekibimiz hem <strong style="color:var(--white);">teknik AI uzmanl\u0131\u011F\u0131n\u0131</strong> hem de <strong style="color:var(--white);">e\u011Fitim bilimi yetkinli\u011Fini</strong> bir arada ta\u015F\u0131r. M\u00FCfredat\u0131 g\u00FCncel tutar, \u00F6\u011Fretmenleri s\u00FCrekli destekler ve program\u0131n alandaki geli\u015Fmelere paralel evrilmesini sa\u011Flar\u0131z.',
+      'why-quote': '"\u201CAI alan\u0131nda dura\u011Fan bir m\u00FCfredat, \u00F6\u011Frencileri d\u00FCn\u00FCn d\u00FCnyas\u0131na haz\u0131rlar. Biz yar\u0131n\u0131n d\u00FCnyas\u0131n\u0131 hedefliyoruz.\u201D',
+      'why-pt1': 'Ya\u015Fayan M\u00FCfredat', 'why-pt2': 'S\u00FCrekli \u00D6\u011Fretmen Geli\u015Fimi',
+      'why-pt3': 'Proje ve Uygulama Zorunlulu\u011Fu', 'why-pt4': 'Teknik + Pedagojik Uzmanl\u0131k',
+      'why-pb1': '\u0130\u00E7erik sabit de\u011Fildir. Alandaki geli\u015Fmelere g\u00F6re d\u00FCzenli olarak g\u00FCncellenir. \u00D6\u011Frenciler g\u00FCncel ara\u00E7lar ve y\u00F6ntemlerle \u00E7al\u0131\u015F\u0131r.',
+      'why-pb2': '\u00D6\u011Fretmenler yaln\u0131zca ba\u015Flang\u0131\u00E7ta de\u011Fil, program boyunca mentorluk ve e\u011Fitim deste\u011Fi al\u0131r. Alandaki yeniliklere birlikte adapte oluruz.',
+      'why-pb3': 'AI\'\u0131n do\u011Fas\u0131 teorik anlat\u0131mla kavranamaz. \u00D6\u011Frenciler ger\u00E7ek veri setleriyle \u00E7al\u0131\u015F\u0131r, model kurar ve somut \u00E7\u0131kt\u0131lar \u00FCretir. \u00D6\u011Frenme ancak yaparak ger\u00E7ekle\u015Fir.',
+      'why-pb4': 'Ekibimiz AI alan\u0131nda teknik derinli\u011Fe, e\u011Fitim biliminde ise pedagojik tasar\u0131m yetkinli\u011Fine sahiptir. Bu iki disiplinin kesi\u015Fimi program\u0131m\u0131z\u0131n temelini olu\u015Fturur.',
+      'svc-tag': 'Hizmet Paketi',
+      'svc-h2': 'Alt\u0131 bile\u015Fen,<br><strong>bir d\u00F6n\u00FC\u015F\u00FCm sistemi.</strong>',
+      'svc-desc': 'Her bile\u015Fen birbirini tamamlar. M\u00FCfredat olmadan \u00F6\u011Fretmen e\u011Fitimi, \u00F6l\u00E7\u00FCm olmadan at\u00F6lye anlams\u0131zd\u0131r. B\u00FCt\u00FCn\u00FC birlikte tasarlar\u0131z.',
+      'svc-t1': 'Kurumsal Analiz', 'svc-t2': 'M\u00FCfredat Tasar\u0131m\u0131', 'svc-t3': '\u00D6\u011Fretmen Akademisi',
+      'svc-t4': '\u00D6\u011Frenci Proje At\u00F6lyeleri', 'svc-t5': 'D\u00F6nemlik Hackathon', 'svc-t6': 'Etki \u00D6l\u00E7\u00FCm\u00FC',
+      'svc-b1': 'Okulun mevcut altyap\u0131s\u0131n\u0131, \u00F6\u011Fretmen yetkinliklerini ve teknolojik haz\u0131rl\u0131k d\u00FCzeyini de\u011Ferlendiriyor; kuruma \u00F6zg\u00FC d\u00F6n\u00FC\u015F\u00FCm yol haritas\u0131n\u0131 birlikte in\u015Fa ediyoruz.',
+      'svc-b2': 'Ortaokul ve lise i\u00E7in proje temelli AI + Veri programlar\u0131, ders planlar\u0131, proje \u00E7er\u00E7eveleri ve IB/AP uyumlu de\u011Ferlendirme rubriklerini tasar\u0131yoruz.',
+      'svc-b3': 'Yo\u011Fun ba\u015Flang\u0131\u00E7 e\u011Fitimi ve ayl\u0131k mentorluk ile \u00F6\u011Fretmeni program\u0131n ger\u00E7ek sahibi yapan kapsaml\u0131 bir kapasite geli\u015Ftirme s\u00FCreci.',
+      'svc-b4': 'Veri analizi, modelleme ve proje geli\u015Ftirmeden sunum haz\u0131rl\u0131\u011F\u0131na uzanan uygulamal\u0131 at\u00F6lyeler. Her ders birimi somut bir proje \u00E7\u0131kt\u0131s\u0131na ba\u011Fl\u0131d\u0131r.',
+      'svc-b5': 'Her d\u00F6nem sonunda yap\u0131lan hackathon ile \u00F6\u011Frenciler yetkinliklerini rekabet\u00E7i ortamda kan\u0131tlar. Akademisyen j\u00FCresi de\u011Ferlendirir, en iyi projeler \u00F6d\u00FCllendirilir.',
+      'svc-b6': '\u00D6\u011Frenci \u00E7\u0131kt\u0131lar\u0131, \u00F6\u011Fretmen geli\u015Fimi ve kurumsal ilerleme g\u00F6stergelerini kapsayan y\u0131ll\u0131k etki raporu ile program\u0131n de\u011Feri somut veriyle kan\u0131tlan\u0131r.',
+      'svctag-1-1': 'Altyap\u0131', 'svctag-1-2': 'Yetkinlik', 'svctag-1-3': 'Yol Haritas\u0131',
+      'svctag-2-1': 'IB/AP Uyumlu', 'svctag-2-2': 'Proje Temelli', 'svctag-2-3': 'Ara\u015Ft\u0131rma',
+      'svctag-3-1': 'E\u011Fitim', 'svctag-3-2': 'Mentorluk', 'svctag-3-3': 'S\u00FCrekli Geli\u015Fim',
+      'svctag-4-1': 'Hands-on', 'svctag-4-2': 'Veri Analizi', 'svctag-4-3': 'Modelleme',
+      'svctag-5-1': 'Rekabet\u00E7i', 'svctag-5-2': 'J\u00FCreli', 'svctag-5-3': '\u00D6d\u00FCll\u00FC',
+      'svctag-6-1': 'Veri Odakl\u0131', 'svctag-6-2': '\u015Eeffafl\u0131k', 'svctag-6-3': 'ROI',
+      'hack-tag': 'D\u00F6nemlik Hackathon',
+      'hack-h2': '\u00D6\u011Frenmek yetmez.<br>Kan\u0131tlamak gerekir.',
+      'hack-body1': 'Her d\u00F6nem sonunda t\u00FCm \u00F6\u011Frenciler 24\u201348 saatlik hackathon format\u0131nda ger\u00E7ek bir problemi \u00E7\u00F6zer. Bu sadece bir s\u0131nav de\u011Fil; \u00F6\u011Frencinin d\u00FC\u015F\u00FCnme bi\u00E7imini, tak\u0131m \u00E7al\u0131\u015Fmas\u0131n\u0131 ve teknik yetkinli\u011Fini ayn\u0131 anda g\u00F6steren bir platform.',
+      'hack-body2': 'Hackathon sonu\u00E7lar\u0131 y\u0131ll\u0131k etki raporuna girer, \u00F6\u011Frenci portf\u00F6y\u00FCne eklenir ve kurumun akademik prestijini g\u00FC\u00E7lendiren somut bir \u00E7\u0131kt\u0131ya d\u00F6n\u00FC\u015F\u00FCr.',
+      'hack-ct1': 'Ger\u00E7ek Problem, Ger\u00E7ek \u00C7\u00F6z\u00FCm', 'hack-ct2': 'Tak\u0131m Dinami\u011Fi ve Liderlik',
+      'hack-ct3': 'Akademik J\u00FCri ve \u00D6d\u00FCller', 'hack-ct4': 'Portf\u00F6y ve Akademik Belge',
+      'hack-cb1': '\u00D6\u011Frenciler sim\u00FCle edilmi\u015F de\u011Fil, ger\u00E7ek veri setleri ve ger\u00E7ek d\u00FCnya problemleriyle \u00E7al\u0131\u015F\u0131r. Sonu\u00E7 uygulanabilir bir \u00FCr\u00FCn veya analizdir.',
+      'hack-cb2': 'Disiplinleraras\u0131 tak\u0131mlar kurulur. Teknik yetkinlik kadar ileti\u015Fim, planlama ve liderlik becerileri de de\u011Ferlendirilir.',
+      'hack-cb3': 'Akademisyenler ve sekt\u00F6r profesyonellerinden olu\u015Fan j\u00FCri de\u011Ferlendirir. En iyi projeler \u00F6d\u00FCllendirilir ve ulusal zirvede sergilenir.',
+      'hack-cb4': 'Her \u00F6\u011Frencinin hackathon \u00E7\u0131kt\u0131s\u0131 belgelenerek ki\u015Fisel portf\u00F6y\u00FCne eklenir. \u00DCniversite ba\u015Fvurular\u0131nda g\u00FC\u00E7l\u00FC bir akademik kan\u0131t niteli\u011Fi ta\u015F\u0131r.',
+      'growth-tag': 'B\u00FCy\u00FCme Stratejisi',
+      'growth-h2': 'Kan\u0131tla,<br>sonra<br><strong>\u00F6l\u00E7eklen.</strong>',
+      'growth-lead': 'Sistematik bir b\u00FCy\u00FCme modeli izliyoruz. Her a\u015Fama, bir \u00F6ncekinin \u00E7\u0131kt\u0131lar\u0131 \u00FCzerine in\u015Fa edilir.',
+      'growth-ns-label': '\u2605 B\u00FCy\u00FCme Felsefemiz',
+      'growth-ns-text': '\u00D6nce <strong>do\u011Fru modeli kurmak</strong>, sonra <strong>\u00F6l\u00E7eklendirmek</strong>. Her y\u0131l bir \u00F6nceki y\u0131l\u0131n deneyimlerinden beslenen, veriye dayal\u0131 ve s\u00FCrd\u00FCr\u00FClebilir bir b\u00FCy\u00FCme stratejisi.',
+      'phase-l1': 'Y\u0131l 1', 'phase-l2': 'Y\u0131l 2', 'phase-l3': 'Y\u0131l 3',
+      'phase-t1': 'Model Do\u011Frulama', 'phase-t2': '\u00D6l\u00E7eklenme', 'phase-t3': 'Ulusal Liderlik',
+      'phase-d1': '2\u20133 pilot okulda derin uygulama. M\u00FCfredat olgunla\u015Ft\u0131rma, hackathon format\u0131n\u0131 test etme ve referans \u00FCretimi. B\u00FCy\u00FCme de\u011Fil, iz b\u0131rakma y\u0131l\u0131.',
+      'phase-d2': '10+ okula geni\u015Fleme ve dijital platform kurulumu. Hackathonlar okullar aras\u0131 rekabet\u00E7i formata ta\u015F\u0131n\u0131r.',
+      'phase-d3': 'Ara\u015Ft\u0131rma laboratuvarlar\u0131, Ulusal \u00D6\u011Frenci Zirvesi ve hackathon\'un ulusal platforma ta\u015F\u0131nmas\u0131. T\u00FCrkiye\'de AI e\u011Fitiminde referans kurum.',
+      'chip-1-1': '2\u20133 Pilot Okul', 'chip-1-2': '\u0130lk Hackathon', 'chip-1-3': 'M\u00FCfredat Olgunla\u015Ft\u0131rma', 'chip-1-4': 'Referans \u00DCretimi',
+      'chip-2-1': '10+ Okul', 'chip-2-2': 'Dijital Platform', 'chip-2-3': 'Okullar Aras\u0131 Hackathon',
+      'chip-3-1': 'Ara\u015Ft\u0131rma Lab', 'chip-3-2': 'Ulusal Zirve', 'chip-3-3': 'Ulusal Hackathon', 'chip-3-4': 'Uluslararas\u0131 A\u00E7\u0131l\u0131m',
+      'aud-tag': 'Hedef Kitle ve Neden Biz',
+      'aud-h2': 'Uluslararas\u0131 hedefleri olan<br><strong>okullar.</strong>',
+      'aud-badge': 'Hedef Kurum Profili',
+      'aud-title': 'Modern, Uluslararas\u0131 Vizyonlu Okullar',
+      'aud-body': '\u00D6\u011Frencilerini k\u00FCresel rekabete haz\u0131rlamay\u0131 hedefleyen, akademik yenili\u011Fe a\u00E7\u0131k ve kaliteli e\u011Fitime yat\u0131r\u0131m yapan kurumlar.',
+      'aud-li1': 'IB, AP veya uluslararas\u0131 m\u00FCfredat uygulayan okullar',
+      'aud-li2': 'Ara\u015Ft\u0131rma ve proje k\u00FClt\u00FCr\u00FCn\u00FC benimseyen kurumlar',
+      'aud-li3': '\u00D6\u011Frencilerini uluslararas\u0131 \u00FCniversitelere haz\u0131rlayan programlar',
+      'aud-li4': 'STEM ve teknoloji alan\u0131nda \u00F6nc\u00FC olmak isteyen okullar',
+      'aud-li5': 'Kurumsal d\u00F6n\u00FC\u015F\u00FCme stratejik yat\u0131r\u0131m yapan y\u00F6netimler',
+      'aud-adv-tag': 'Rekabet Avantaj\u0131m\u0131z',
+      'aud-wt1': 'Proje Temelli Sistem', 'aud-wt2': 'D\u00F6nemlik Hackathon Format\u0131',
+      'aud-wt3': 'Akademik Dan\u0131\u015Fma Kurulu', 'aud-wt4': '\u00D6\u011Fretmen Merkezli Kal\u0131c\u0131l\u0131k',
+      'aud-wb1': 'Piyasadaki alternatiflerin b\u00FCy\u00FCk \u00E7o\u011Funlu\u011Fu i\u00E7erik aktar\u0131m\u0131na odaklan\u0131r. Biz her ders birimini somut bir proje \u00E7\u0131kt\u0131s\u0131na ba\u011Flayan sistematik bir model kuruyoruz.',
+      'aud-wb2': 'Hackathon, \u00F6\u011Frenmeyi \u00F6l\u00E7\u00FClebilir ve rekabet\u00E7i hale getirir. \u00D6\u011Frenci portf\u00F6y\u00FCne ve kurumun akademik prestijine do\u011Frudan katk\u0131 sa\u011Flar.',
+      'aud-wb3': 'Ba\u011F\u0131ms\u0131z akademisyenlerden olu\u015Fan kurulun sa\u011Flad\u0131\u011F\u0131 i\u00E7erik g\u00FCvencesi, IB/AP standartlar\u0131na uyum ve uluslararas\u0131 akademik \u00E7\u0131pa.',
+      'aud-wb4': 'Program bitmez; \u00F6\u011Fretmen sahiplenir. Mentorlu \u00F6\u011Fretmen a\u011F\u0131 kurumsal d\u00F6n\u00FC\u015F\u00FCm\u00FCn uzun vadeli g\u00FCvencesidir.',
+      'curr-tag': 'M\u00FCfredat Mimarisi',
+      'curr-h2': '\u0130ki model,<br><strong>esnek uygulama.</strong>',
+      'curr-lead': 'Okullar ihtiya\u00E7lar\u0131na g\u00F6re modellerden birini veya ikisini birlikte tercih edebilir. Her iki model de ortaokul ve lise seviyesinde uygulan\u0131r. E\u011Fitimler okulun tercihine g\u00F6re T\u00FCrk\u00E7e veya \u0130ngilizce olarak verilebilir.',
+      'curr-ma-desc': 'Okul i\u00E7inde derslerden ba\u011F\u0131ms\u0131z bir AI kul\u00FCb\u00FC/hub\'\u0131 olu\u015Fturulur. \u00D6\u011Frenciler proje temelli ve hackathon destekli AI + Veri Bilimi e\u011Fitimi al\u0131r.',
+      'curr-mb-title': 'Ders Entegrasyonu',
+      'curr-mb-desc': 'AI ve veri analizi, mevcut bili\u015Fim/yaz\u0131l\u0131m, matematik ve do\u011Fa bilimleri (fizik, kimya, biyoloji) derslerine entegre edilir. \u00D6\u011Frenciler kendi ders i\u00E7eriklerini veri ve yapay zek\u00E2 ile g\u00FC\u00E7lendirir.',
+      'curr-ct': 'Ne \u00F6\u011Frenilir?',
+      'curr-cl': 'Temel kavramlardan ileri uygulamalara uzanan, her ad\u0131m\u0131 prati\u011Fe dayanan 10 mod\u00FCll\u00FCk bir yolculuk. Her mod\u00FCl teori, canl\u0131 demo ve \u00F6dev \u00FC\u00E7l\u00FCs\u00FCyle i\u015Flenir.',
+      'curr-tn1': 'AI Temelleri & Ekosistem', 'curr-tn2': 'Do\u011Fal Dil \u0130\u015Fleme',
+      'curr-tn3': 'Transformer & LLM', 'curr-tn4': 'Prompt M\u00FChendisli\u011Fi',
+      'curr-tn5': 'Agent Sistemleri', 'curr-tn6': 'RAG',
+      'curr-tn7': 'Bilgisayarla G\u00F6rme', 'curr-tn8': 'Multimodal \u00DCretim',
+      'curr-tn9': 'AI ile Yaz\u0131l\u0131m Geli\u015Ftirme', 'curr-tn10': '\u0130\u015F Ak\u0131\u015F\u0131 Otomasyonu',
+      'curr-td1': 'ML i\u015F ak\u0131\u015F\u0131, model e\u011Fitimi, de\u011Ferlendirme metrikleri',
+      'curr-td2': 'Tokenizasyon, kelime g\u00F6mmeleri, Word2Vec',
+      'curr-td3': 'Dikkat mekanizmas\u0131, encoder/decoder, fine-tuning',
+      'curr-td4': 'CoT, few-shot, g\u00FCvenlik, yap\u0131land\u0131r\u0131lm\u0131\u015F \u00E7\u0131kt\u0131lar',
+      'curr-td5': 'ReAct d\u00F6ng\u00FCs\u00FC, ara\u00E7 kullan\u0131m\u0131, \u00E7ok-ajanl\u0131 sistemler',
+      'curr-td6': 'Embedding, vekt\u00F6r veritabanlar\u0131, bilgi eri\u015Fimi',
+      'curr-td7': 'CNN mimarisi, nesne alg\u0131lama, veri art\u0131rma',
+      'curr-td8': 'Diffusion modeller, ses sentezi, video \u00FCretimi',
+      'curr-td9': 'Git, Cursor, Lovable, AI destekli kodlama',
+      'curr-td10': 'Vertex AI, kurumsal agent\'lar, u\u00E7tan u\u00E7a entegrasyon',
+      'curr-bt1': 'Bireysel Projeler', 'curr-bt2': 'Hackathon & Final Sunumu',
+      'curr-btt1': 'Her \u00F6\u011Frenci kendi AI projesini geli\u015Ftirir.',
+      'curr-btt2': 'D\u00F6nem sonu: sahneye \u00E7\u0131kma zaman\u0131.',
+      'curr-bb1': 'D\u00F6nem boyunca haftal\u0131k mentorluk e\u015Fli\u011Finde fikir a\u015Famas\u0131ndan \u00E7al\u0131\u015Fan \u00FCr\u00FCne kadar ilerleyen bireysel projeler. \u00D6\u011Frenciler ger\u00E7ek ara\u00E7larla ger\u00E7ek sorunlara \u00E7\u00F6z\u00FCm \u00FCretir ve bir yaz\u0131l\u0131m portf\u00F6y\u00FC olu\u015Fturur.',
+      'curr-bb2': 'Her d\u00F6nem, \u00F6\u011Frenciler projelerini j\u00FCri ve akranlar\u0131 \u00F6n\u00FCnde sunar. Canl\u0131 demo, teknik soru-cevap ve akran de\u011Ferlendirmesiyle yetkinlikler somut bi\u00E7imde kan\u0131tlan\u0131r. En iyi projeler okul genelinde sergilenir.',
+      'curr-ex1': 'Portfolyo + AI Chatbot', 'curr-ex2': 'Ak\u0131ll\u0131 Ders Asistan\u0131',
+      'curr-ex3': '\u0130\u00E7erik \u00DCretim Paneli', 'curr-ex4': 'Mekan \u00D6neri Uygulamas\u0131',
+      'curr-ex5': 'Al\u0131\u015Fkanl\u0131k Takip\u00E7isi',
+      'curr-ex6': '10 dk Sunum', 'curr-ex7': 'Canl\u0131 Demo',
+      'curr-ex8': 'Akran De\u011Ferlendirmesi', 'curr-ex9': 'J\u00FCri Geri Bildirimi',
+      'contact-tag': '\u0130leti\u015Fim',
+      'contact-h2': 'D\u00F6n\u00FC\u015F\u00FCm bir<br><strong>g\u00F6r\u00FC\u015Fmeyle ba\u015Flar.</strong>',
+      'contact-lead': 'Pilot okul ba\u015Fvurular\u0131n\u0131 de\u011Ferlendiriyoruz. Kurumunuza \u00F6zel \u00F6n analiz g\u00F6r\u00FC\u015Fmesi i\u00E7in bilgilerinizi b\u0131rak\u0131n.',
+      'contact-email-label': 'E-Posta', 'contact-loc-label': 'Konum',
+      'contact-loc-value': '\u0130stanbul, T\u00FCrkiye',
+      'form-name': 'Ad Soyad', 'form-title': 'Unvan', 'form-school': 'Okul / Kurum Ad\u0131',
+      'form-email': 'E-Posta', 'form-program': '\u0130lgilendi\u011Finiz Program', 'form-message': 'Mesaj\u0131n\u0131z (\u0130ste\u011Fe Ba\u011Fl\u0131)',
+      'form-opt0': 'Se\u00E7in', 'form-opt1': 'AI + Veri \u2014 Ortaokul', 'form-opt2': 'AI + Veri \u2014 Lise',
+      'form-opt3': 'Her \u0130kisi', 'form-opt4': 'Genel Bilgi Almak \u0130stiyorum',
+      'form-submit': 'G\u00F6r\u00FC\u015Fme Talep Et',
+      'form-ok-title': 'Talebiniz Al\u0131nd\u0131',
+      'form-ok-body': '48 saat i\u00E7inde kurumsal e-posta adresinize d\u00F6n\u00FC\u015F yap\u0131lacakt\u0131r.',
+      'footer-loc': '\u0130stanbul, T\u00FCrkiye',
+      'foot-1': 'Yakla\u015F\u0131m\u0131m\u0131z', 'foot-2': 'Hizmetler', 'foot-3': 'Hackathon',
+      'foot-4': 'S\u00FCrec\u0327', 'foot-5': 'M\u00FCfredat', 'foot-6': '\u0130leti\u015Fim'
+    }
+  };
+
+  let currentLang = 'tr';
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
+    });
+    var dict = i18n[lang];
+    if (!dict) return;
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.dataset.i18n;
+      if (dict[key] !== undefined) {
+        el.innerHTML = dict[key];
+      }
+    });
+    // Form placeholders
+    var inputs = document.querySelectorAll('.form-input');
+    var textarea = document.querySelector('.form-textarea');
+    if (lang === 'en') {
+      if (inputs[0]) inputs[0].placeholder = 'Dr. Jane Smith';
+      if (inputs[1]) inputs[1].placeholder = 'Principal';
+      if (inputs[2]) inputs[2].placeholder = 'Enter institution name';
+      if (inputs[3]) inputs[3].placeholder = 'name@school.edu';
+      if (textarea) textarea.placeholder = 'You can briefly describe your institution\u2026';
+      document.title = 'K12 AI Lab \u2014 AI and Data Education for Schools';
+      document.querySelector('meta[name="description"]').content = 'Academic consultancy building project-based AI and Data education infrastructure in K12 schools.';
+    } else {
+      if (inputs[0]) inputs[0].placeholder = 'Dr. Ay\u015Fe Kaya';
+      if (inputs[1]) inputs[1].placeholder = 'Genel M\u00FCd\u00FCr';
+      if (inputs[2]) inputs[2].placeholder = 'Kurum ad\u0131n\u0131 yaz\u0131n';
+      if (inputs[3]) inputs[3].placeholder = 'ad@kurum.edu.tr';
+      if (textarea) textarea.placeholder = 'Kurumunuz hakk\u0131nda k\u0131saca bilgi verebilirsiniz\u2026';
+      document.title = 'K12 AI Lab \u2014 Okullar i\u00E7in Yapay Zek\u00E2 ve Veri E\u011Fitimi';
+      document.querySelector('meta[name="description"]').content = 'K12 okullar\u0131nda proje temelli Yapay Zek\u00E2 ve Veri e\u011Fitimi altyap\u0131s\u0131 kuran akademik dan\u0131\u015Fmanl\u0131k \u015Firketi.';
+    }
+  }
 </script>
 </body>
 </html>
